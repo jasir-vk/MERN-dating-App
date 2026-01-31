@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaHeart, FaTimes } from "react-icons/fa";
 import styles from "./Shortlisted.module.css"; // Import CSS module
 import Header from "../../Components/Header/Header";
@@ -7,6 +7,7 @@ import { getShortListed, removeShortList } from "../../Services/ShortListAPI";
 import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import { getAcceptRequest } from "../../Services/getAcceptRequestAPI";
 import { sentFriendRequest } from "../../Services/FriendRequestAPI";
+import { ModalContext } from "../../StateManagement/ModalContext";
 
 const groupContacts = (contacts) => {
     return contacts.reduce((acc, contact) => {
@@ -20,11 +21,16 @@ const groupContacts = (contacts) => {
 };
 
 const Shortlisted = () => {
+    const { setPageName } = useContext(ModalContext);
     const [getShortListedProfiles, setGetShortListedProfiles] = useState([])
     const [error, setError] = useState('')
     const [message, setMessage] = useState('')
     const [loading, setLoading] = useState(true)
     const [acceptRequest, setAcceptRequest] = useState({})
+
+    useEffect(() => {
+        setPageName("Shortlisted");
+    }, [setPageName]);
 
     const handleSentFriendRequest = async (receiverId) => {
         console.log('receiverId:', receiverId);

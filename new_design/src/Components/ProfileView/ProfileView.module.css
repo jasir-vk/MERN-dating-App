@@ -1,12 +1,20 @@
+/* ============================================
+   ProfileView - Modern Card-Based Design
+   Phase 8: Profile Page Modernization
+   ============================================ */
+
+/* ========== Profile Container ========== */
+
 .profileViewContainer {
   position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
-  color: white;
-  background-size: cover;
-  padding: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #F8E8F2 0%, #FFFFFF 100%);
 }
+
+/* ========== Message Overlays ========== */
 
 .messageOverlay {
   position: fixed;
@@ -14,9 +22,10 @@
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 1rem 2rem;
-  background-color: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
   z-index: 10000;
   display: flex;
   align-items: center;
@@ -24,14 +33,18 @@
   width: 80%;
   max-width: 400px;
   text-align: center;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
 }
 
 .errorOverlay {
-  color: rgb(211, 52, 52);
+  color: #D32F2F;
+  border: 2px solid #D32F2F;
 }
 
 .successOverlay {
-  color: rgb(40, 126, 40);
+  color: #388E3C;
+  border: 2px solid #388E3C;
 }
 
 .backgroundDimmer {
@@ -40,274 +53,395 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
   z-index: 9999;
   pointer-events: none;
 }
 
-.topContainer {
+/* ========== Hero Section ========== */
+
+.heroSection {
   position: relative;
-  background: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-align: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
 }
 
-.topContainer>* {
-  position: relative;
-  z-index: 2;
-}
+/* ========== Image Gallery Dots ========== */
 
-.topLeftArrow {
+.imageDots {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  font-size: 20px;
-  cursor: pointer;
-  border: 1px solid white;
-  border-radius: 50%;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+}
+
+.dot {
   width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(8px);
-  background-color: rgba(255, 255, 255, 0.342);
-}
-
-.topRightLocation {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  display: flex;
-  align-items: center;
-  font-size: 15px;
-  letter-spacing: 2px;
-  border: 1px solid white;
-  border-radius: 30px;
-  padding: 5px 10px;
-  font-weight: 700;
-  backdrop-filter: blur(8px);
-  background-color: rgba(255, 255, 255, 0.342);
+  height: 4px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
 }
 
-.topRightLocation i {
-  margin-right: 5px;
+.dot:hover {
+  background: rgba(255, 255, 255, 0.6);
 }
 
-.topRightLocation p {
-  margin-top: 12px;
+.activeDot {
+  background: linear-gradient(90deg, #4B134F 0%, #FF4081 100%);
+  box-shadow: 0 0 8px rgba(255, 64, 129, 0.6);
 }
 
-.userDetails {
-  margin-top: 400px;
-  text-align: center;
-}
-
-.username {
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  margin: 0;
-}
-
-.userPlace {
-  font-size: 18px;
-  margin: 5px 0;
-  letter-spacing: 2px;
-}
-
-.matchingContainer {
-  display: flex;
-  align-items: center;
-  background-color: #5d1451;
-  border-radius: 40px;
-  padding: 10px 20px;
-  margin-top: 10px;
-  border: 3px solid #bb4ea9c7;
-  height: 60px;
-}
-
-.matchingPercentage {
-  display: flex;
-  align-items: center;
-  margin-right: 10px;
-}
-
-.circle {
+.heroOverlay {
   position: relative;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: conic-gradient(#bb4ea9c7 0% 80%, #5d1451 80% 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.innerCircle {
-  background-color: #5d1451;
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.1) 40%,
+    rgba(75, 19, 79, 0.7) 100%
+  );
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.percentageNumber {
-  font-size: 18px;
-  font-weight: 500;
-  margin-top: -8px;
-  color: white;
-  margin: 0;
-}
-
-.percentageIcon {
-  font-size: 14px;
-  color: white;
-  margin: 0;
-  margin-bottom: -25px;
-}
-
-.matchText {
-  font-size: 22px;
-  margin-top: 10px;
-  font-weight: 500;
-  letter-spacing: 2px;
-  color: white;
-}
-
-.torchEffect::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 230px;
-  background: linear-gradient(to top, #582650, transparent);
-  pointer-events: none;
+  justify-content: space-between;
+  padding: 20px;
   z-index: 1;
 }
 
-.bottomContainer {
+/* ========== Top Navigation ========== */
+
+.topNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: auto;
+}
+
+.backButton {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: none;
+  color: #4B134F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+}
+
+.backButton:hover {
+  background: white;
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.editButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: none;
+  color: #4B134F;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+}
+
+.editButton:hover {
+  background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(75, 19, 79, 0.4);
+}
+
+/* ========== User Info ========== */
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: white;
+  margin-top: auto;
+  padding-bottom: 40px;
+}
+
+.userName {
+  font-size: 36px;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  margin: 0 0 8px 0;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.5px;
+}
+
+.userAge {
+  font-weight: 400;
+}
+
+.userLocation {
+  font-size: 18px;
+  margin: 0 0 20px 0;
+  opacity: 0.95;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* ========== Profile Completion Badge ========== */
+
+.completionBadge {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border-radius: 50px;
+  padding: 12px 24px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.completionCircle {
   position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.completionSvg {
   width: 100%;
-  background-color: #fff;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  transform: rotate(-90deg);
 }
 
-.about {
-  margin-top: 50px;
+.completionBg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.3);
+  stroke-width: 3;
+}
+
+.completionFill {
+  fill: none;
+  stroke: url(#completionGradient);
+  stroke-width: 3;
+  stroke-linecap: round;
+  animation: fillAnimation 1.5s ease-out forwards;
+}
+
+@keyframes fillAnimation {
+  from {
+    stroke-dasharray: 0, 100;
+  }
+}
+
+.completionText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: baseline;
+  font-weight: 700;
+  color: white;
+}
+
+.completionNumber {
+  font-size: 20px;
+}
+
+.completionPercent {
+  font-size: 12px;
+  margin-left: 2px;
+}
+
+.completionLabel {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ========== Content Section ========== */
+
+.contentSection {
+  padding: 24px 20px 100px 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  gap: 20px;
 }
 
-.aboutHeading {
-  font-size: 30px;
-  color: rgb(146, 140, 140);
-  font-weight: 500;
-  letter-spacing: 2px;
-  margin-bottom: 20px;
+/* ========== Card Styles ========== */
+
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
 }
 
-.aboutContent {
-  font-size: 22px;
-  color: black;
-  font-weight: 500;
-  margin-top: -15px;
+.card:hover {
+  box-shadow: 0 8px 32px rgba(75, 19, 79, 0.15);
+  transform: translateY(-4px);
 }
 
-.interests {
-  margin-bottom: 20px;
+.cardHeading {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  color: #4B134F;
+  margin: 0 0 16px 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  text-align: center;
+  gap: 10px;
 }
 
-.interestHeading {
-  font-size: 30px;
-  color: rgb(146, 140, 140);
-  font-weight: 500;
-  margin-bottom: 10px;
-  letter-spacing: 1px;
+.cardHeading::before {
+  content: '';
+  width: 4px;
+  height: 24px;
+  background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+  border-radius: 2px;
 }
+
+.cardContent {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #424242;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ========== Interest Tags ========== */
 
 .interestTags {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
+  gap: 12px;
 }
 
 .interestTag {
-  background-color: #e1d8f1;
-  color: #58084b;
-  font-weight: 500;
-  height: 50px;
-  width: 150px;
-  border-radius: 20px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  margin: 10px;
-  font-size: 16px;
+  gap: 8px;
+  padding: 10px 18px;
+  background: linear-gradient(135deg, rgba(75, 19, 79, 0.08) 0%, rgba(255, 64, 129, 0.08) 100%);
+  border: 2px solid rgba(75, 19, 79, 0.15);
+  border-radius: 24px;
+  color: #4B134F;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.3s ease;
 }
 
+.interestTag:hover {
+  background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+  color: white;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(75, 19, 79, 0.3);
+}
+
+.interestIcon {
+  font-size: 14px;
+}
+
+/* ========== Action Footer (For ProfileView, not OwnProfileView) ========== */
+
 .footerContainer {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  max-width: 400px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 2rem;
-  width: 80%;
-  background-color: rgba(255, 255, 255, 0.979);
-  border-top: 1px solid #f8eeee;
-  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(75, 19, 79, 0.15);
   border-radius: 50px;
-  margin-bottom: 20px;
-  height: 45px;
-  margin-left: 8%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  z-index: 997;
 }
 
 .footerButton {
-  font-size: 1.5rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 25px;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: white;
 }
 
 .dislikeButton {
-  color: white;
-  background: rgb(253, 175, 146);
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+}
+
+.dislikeButton:hover {
+  background: linear-gradient(135deg, #FF5252 0%, #FF7043 100%);
+  transform: scale(1.1);
 }
 
 .starButton {
-  color: white;
-  background: #5d1451;
+  background: linear-gradient(135deg, #4B134F 0%, #7B1FA2 100%);
+}
+
+.starButton:hover {
+  background: linear-gradient(135deg, #5B1D5F 0%, #8B2FA2 100%);
+  transform: scale(1.1);
 }
 
 .likeButton {
-  color: white;
-  background: rgb(240, 127, 215);
+  background: linear-gradient(135deg, #FF4081 0%, #F48FB1 100%);
+}
+
+.likeButton:hover {
+  background: linear-gradient(135deg, #FF5091 0%, #F49FC1 100%);
+  transform: scale(1.1);
+}
+
+.chatButton {
+  background: linear-gradient(135deg, #E1BEE7 0%, #CE93D8 100%);
+}
+
+.chatButton:hover {
+  background: linear-gradient(135deg, #D1AED7 0%, #BE83C8 100%);
+  transform: scale(1.1);
 }
 
 .buttonWrapper {
@@ -317,11 +451,11 @@
 
 .hoverText {
   visibility: hidden;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.9);
   color: #fff;
   text-align: center;
-  border-radius: 5px;
-  padding: 5px;
+  border-radius: 8px;
+  padding: 6px 12px;
   position: absolute;
   z-index: 1;
   bottom: 125%;
@@ -330,274 +464,351 @@
   white-space: nowrap;
   opacity: 0;
   transition: opacity 0.3s;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .buttonWrapper:hover .hoverText {
   visibility: visible;
   opacity: 1;
-  font-size: small;
 }
 
+/* ========== Responsive Design ========== */
 
-.chatButton {
-  color: white;
-  background: rgb(238, 181, 226);
-}
-
-@media (max-width: 768px) {
-  .topContainer {
-    height: 40vh;
+/* Mobile: < 576px */
+@media (max-width: 575px) {
+  .heroSection {
+    height: 85vh;
   }
 
-  .username {
-    font-size: 20px;
+  .heroOverlay {
+    padding: 16px;
   }
 
-  .userPlace {
+  .backButton {
+    width: 40px;
+    height: 40px;
     font-size: 16px;
   }
 
-  .aboutContent {
+  .imageDots {
+    top: 70px;
+    gap: 6px;
+    padding: 6px 12px;
+  }
+
+  .dot {
+    width: 30px;
+    height: 3px;
+  }
+
+  .editButton {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .userInfo {
+    padding-bottom: 30px;
+  }
+
+  .userName {
+    font-size: 28px;
+  }
+
+  .userLocation {
     font-size: 16px;
   }
 
-  .interestTag {
-    height: 35px;
-    width: 100px;
-    font-size: 12px;
+  .completionBadge {
+    padding: 10px 18px;
+    gap: 12px;
   }
 
-  .matchText {
-    font-size: 18px;
+  .completionCircle {
+    width: 50px;
+    height: 50px;
   }
 
-  .footerButton {
-    margin-bottom: 0.5rem;
-  }
-}
-
-@media (min-width: 350px) and (max-width: 767px) {
-  .topContainer {
-    height: 100vh;
+  .completionNumber {
+    font-size: 16px;
   }
 
-  .topLeftArrow {
-    font-size: 18px;
-    width: 35px;
-    height: 35px;
+  .completionPercent {
+    font-size: 10px;
   }
 
-  .topRightLocation {
-    font-size: 14px;
-    height: 30px;
-    margin-right: 10px;
-    letter-spacing: 0;
-    padding: 4px 8px;
-  }
-
-  .userDetails {
-    margin-top: 420px;
-  }
-
-  .username {
-    font-size: 22px;
-  }
-
-  .userPlace {
+  .completionLabel {
     font-size: 14px;
   }
 
-  .matchingContainer {
-    padding: 8px 16px;
-    height: 38px;
+  .contentSection {
+    padding: 20px 16px 100px 16px;
+    gap: 16px;
   }
 
-  .circle {
-    width: 45px;
-    height: 45px;
+  .card {
+    padding: 20px;
+    border-radius: 16px;
   }
 
-  .innerCircle {
-    width: 35px;
-    height: 35px;
-  }
-  
-  .percentageNumber {
-    font-size: 16px;
+  .cardHeading {
+    font-size: 18px;
+    margin-bottom: 12px;
   }
 
-  .percentageIcon {
-    font-size: 12px;
-    margin-bottom: -17px;
+  .cardHeading::before {
+    height: 20px;
   }
 
-  .matchText {
-    font-size: 20px;
-  }
-
-  .aboutHeading {
-    margin: 0px 20px;
-    font-size: 20px;
-    text-align: left;
-    width: 100%;
-    margin-left: 55px;
-  }
-
-  .aboutContent {
-    font-size: 16px;
-    margin: 0 20px;
-    text-align: left;
-  }
-
-  .interestHeading {
-    font-size: 20px;
-    margin: 20px;
-    text-align: left;
-    width: 100%;
-    margin-left: 55px;
+  .cardContent {
+    font-size: 14px;
   }
 
   .interestTags {
-    margin: 0 20px;
-    display: flex;
-    flex-wrap: nowrap;
     gap: 10px;
-    justify-content: flex-start;
-    margin-left: 20px;
-    overflow-x: auto;
   }
 
   .interestTag {
-    height: 40px;
-    width: 100px;
-    font-size: 14px;
-    flex: 0 0 auto;
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .interestIcon {
+    font-size: 12px;
   }
 
   .footerContainer {
-    margin-left: 5%;
+    bottom: 70px;
+    width: calc(100% - 32px);
+    padding: 12px;
+  }
+
+  .footerButton {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
   }
 }
 
-/* .profileViewContainer {
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  flex-direction: column;
-  color: white;
+/* Tablet: 576px - 767px */
+@media (min-width: 576px) and (max-width: 767px) {
+  .heroSection {
+    height: 90vh;
+  }
+
+  .userName {
+    font-size: 32px;
+  }
+
+  .userLocation {
+    font-size: 17px;
+  }
+
+  .completionCircle {
+    width: 56px;
+    height: 56px;
+  }
+
+  .completionNumber {
+    font-size: 18px;
+  }
+
+  .completionPercent {
+    font-size: 11px;
+  }
+
+  .contentSection {
+    padding: 22px 18px 100px 18px;
+  }
+
+  .card {
+    padding: 22px;
+  }
+
+  .cardHeading {
+    font-size: 19px;
+  }
+
+  .interestTag {
+    padding: 9px 16px;
+    font-size: 13px;
+  }
 }
 
-.topBar {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
+/* Tablet: 768px - 991px */
+@media (min-width: 768px) and (max-width: 991px) {
+  .heroSection {
+    height: 95vh;
+  }
+
+  .userName {
+    font-size: 34px;
+  }
+
+  .contentSection {
+    padding: 24px 20px 100px 20px;
+  }
+
+  .footerButton {
+    width: 52px;
+    height: 52px;
+    font-size: 22px;
+  }
 }
 
-.backButton,
-.distance {
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
+/* Desktop: 992px+ */
+@media (min-width: 992px) {
+  .heroSection {
+    height: 100vh;
+  }
+
+  .backButton,
+  .editButton {
+    transform: translateY(0);
+  }
+
+  .backButton:hover,
+  .editButton:hover {
+    transform: translateY(-2px);
+  }
+
+  .userName {
+    font-size: 40px;
+  }
+
+  .userLocation {
+    font-size: 20px;
+  }
+
+  .completionCircle {
+    width: 70px;
+    height: 70px;
+  }
+
+  .completionNumber {
+    font-size: 24px;
+  }
+
+  .completionPercent {
+    font-size: 14px;
+  }
+
+  .completionLabel {
+    font-size: 18px;
+  }
+
+  .contentSection {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 32px 24px 120px 24px;
+    gap: 24px;
+  }
+
+  .card {
+    padding: 28px;
+  }
+
+  .cardHeading {
+    font-size: 22px;
+  }
+
+  .cardContent {
+    font-size: 16px;
+  }
+
+  .interestTag {
+    padding: 12px 20px;
+    font-size: 15px;
+  }
+
+  .interestIcon {
+    font-size: 16px;
+  }
+
+  .footerContainer {
+    max-width: 450px;
+  }
+
+  .footerButton {
+    width: 60px;
+    height: 60px;
+    font-size: 26px;
+  }
 }
 
-.distance {
-  border-radius: 20px;
-  width: auto;
-  padding: 0 15px;
+/* Large Desktop: 1200px+ */
+@media (min-width: 1200px) {
+  .contentSection {
+    max-width: 900px;
+  }
 }
 
-.userInfo {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 20px;
+/* ========== Accessibility ========== */
+
+.backButton:focus-visible,
+.editButton:focus-visible,
+.footerButton:focus-visible,
+.interestTag:focus-visible {
+  outline: 3px solid #FF4081;
+  outline-offset: 2px;
 }
 
-.userName {
-  font-size: 28px;
-  margin: 0;
+/* ========== Touch Devices ========== */
+
+@media (hover: none) and (pointer: coarse) {
+  .card:hover {
+    transform: none;
+  }
+
+  .card:active {
+    transform: scale(0.98);
+  }
+
+  .interestTag:hover {
+    background: linear-gradient(135deg, rgba(75, 19, 79, 0.08) 0%, rgba(255, 64, 129, 0.08) 100%);
+    color: #4B134F;
+    transform: none;
+  }
+
+  .interestTag:active {
+    background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+    color: white;
+    transform: scale(0.95);
+  }
+
+  .footerButton:hover {
+    transform: none;
+  }
+
+  .footerButton:active {
+    transform: scale(0.9);
+  }
 }
 
-.userLocation {
-  font-size: 16px;
-  margin: 5px 0;
-}
+/* ========== Print Styles ========== */
 
-.matchContainer {
-  display: flex;
-  align-items: center;
-  background: rgba(128, 0, 128, 0.6);
-  border-radius: 25px;
-  padding: 5px 15px;
-  width: fit-content;
-}
+@media print {
+  .heroOverlay {
+    background: rgba(0, 0, 0, 0.3);
+  }
 
-.matchPercentage {
-  font-size: 20px;
-  font-weight: bold;
-  margin-right: 10px;
-}
+  .backButton,
+  .editButton,
+  .footerContainer {
+    display: none;
+  }
 
-.profileDetails {
-  background: white;
-  color: black;
-  border-radius: 20px 20px 0 0;
-  padding: 20px;
-}
+  .contentSection {
+    padding: 20px;
+  }
 
-.about h2,
-.interests h2 {
-  color: #888;
-  font-size: 18px;
-}
+  .card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    page-break-inside: avoid;
+  }
 
-.interestTags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  .interestTag {
+    border-color: #4B134F;
+  }
 }
-
-.interestTags span {
-  background: #f0f0f0;
-  padding: 5px 15px;
-  border-radius: 20px;
-}
-
-.actionButtons {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
-}
-
-.actionButtons button {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: none;
-  font-size: 20px;
-  color: white;
-}
-
-.dislike {
-  background-color: #ff6b6b;
-}
-
-.star {
-  background-color: #5d1451;
-}
-
-.like {
-  background-color: #ff9ff3;
-}
-
-.chat {
-  background-color: #feca57;
-} */

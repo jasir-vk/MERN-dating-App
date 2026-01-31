@@ -34,4 +34,33 @@ const FilterQualificationBackend = asyncHandler(async (req, res) => {
     res.status(200).json({ FilterQualifications: profiles, success: true });
 });
 
-module.exports = { FilterQualificationBackend };
+const FilterDesignationBackend = asyncHandler(async (req, res) => {
+    const loggedInUser = req.user;
+
+    // Find users with employer data
+    let users = await User.find({
+        _id: { $ne: loggedInUser._id },
+        employer: { $exists: true, $ne: null }
+    })
+    .populate('profile')
+    .populate('employer')
+    .exec();
+
+    // Filter by gender preference
+    let filteredUsers;
+    if (loggedInUser.userInterest === 'MEN') {
+        filteredUsers = users.filter(user => user.profile?.gender === 'male');
+    } else if (loggedInUser.userInterest === 'WOMEN') {
+        filteredUsers = users.filter(user => user.profile?.gender === 'female');
+    } else {
+        filteredUsers = users;
+    }
+
+    res.status(200).json({
+        success: true,
+        FilterDesignations: filteredUsers,
+        count: filteredUsers.length
+    });
+});
+
+module.exports = { FilterQualificationBackend, FilterDesignationBackend };

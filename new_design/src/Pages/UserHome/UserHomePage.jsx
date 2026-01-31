@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Container } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../Components/HeaderUserHome/HeaderUserHome';
 import Stories from '../../Components/Stories/Stories';
 import Filters from '../../Components/Filters/Filters';
@@ -14,6 +15,7 @@ import { UserContext } from '../../Components/Context/UserContext';
 import LoadingPage from '../../Components/LoadingPage/LoadingPage';
 
 function UserHomePage() {
+  const navigate = useNavigate();
   const { user, fetchUserDetails } = useContext(UserContext);
   const [modalShow, setModalShow] = useState(false);
   const [notificationView, setNotificationView] = useState(false);
@@ -41,6 +43,14 @@ function UserHomePage() {
     setModalShow(false);
   };
 
+  // Check for authentication
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/');
+    }
+  }, [navigate]);
+
   useEffect(() => {
     const checkUserInterest = async () => {
       const token = localStorage.getItem('token');
@@ -61,7 +71,7 @@ function UserHomePage() {
       setModalShow(false);  // Close modal if userInterest exists
       setLoading(false);  // Stop loading if user is already loaded
     }
-  }, [user]);  // Depend on user only
+  }, [user, fetchUserDetails]);  // Add fetchUserDetails to dependencies
 
   if (loading) {
     return <LoadingPage />;
@@ -72,16 +82,35 @@ function UserHomePage() {
   };
 
   return (
-    <Container fluid className={`${styles.appContainer} ${modalShow ? styles.blurBackground : ''}`} onClick={handleLeftsideMenu}>
-      <Header setLeftSideNavBar={setLeftSideNavBar} setNotificationView={setNotificationView} />
-      {leftSideNavBar && <LeftSideMenu />}
-      {notificationView && <Notifications setNotificationView={setNotificationView} />}
-      <Stories />
-      <Filters />
-      <Profiles />
-      <Footer />
+    <>
+      <div className={styles.pageWrapper}>
+        {/* Decorative Background Elements */}
+        <div className={styles.decorativeBackground}>
+          <div className={styles.gradientOrb1}></div>
+          <div className={styles.gradientOrb2}></div>
+          <div className={styles.gradientOrb3}></div>
+        </div>
+
+        {/* Main Content Container */}
+        <Container
+          fluid
+          className={`${styles.appContainer} ${modalShow ? styles.blurBackground : ''}`}
+          onClick={handleLeftsideMenu}
+        >
+          <Header setLeftSideNavBar={setLeftSideNavBar} setNotificationView={setNotificationView} />
+          {leftSideNavBar && <LeftSideMenu />}
+          {notificationView && <Notifications setNotificationView={setNotificationView} />}
+          <Stories />
+          <Filters />
+          <Profiles />
+        </Container>
+
+        {/* Fixed Footer */}
+        <Footer />
+      </div>
+
       <InterestModal show={modalShow} handleClose={handleModalClose} />
-    </Container>
+    </>
   );
 }
 

@@ -93,10 +93,22 @@ const RelationshipGoals = () => {
             <LoadingPage />
           ) : (
             <>
+              {/* Progress Indicator */}
+              <div className={styles.progressIndicator}>
+                <div className={styles.progressDot}></div>
+                <div className={styles.progressDot}></div>
+                <div className={`${styles.progressDot} ${styles.active}`}></div>
+                <div className={styles.progressDot}></div>
+                <div className={styles.progressDot}></div>
+              </div>
+
               {currentStep === 1 && (
                 <>
-                  <h2>Relationship Goals</h2>
+                  <h2>What are you looking for?</h2>
+                  <div className={styles.stepIndicator}>Step 3 of 5</div>
+
                   <div className={styles.radioContainer}>
+                    {/* Short Term Option Card */}
                     <label className={styles.radioLabel}>
                       <input
                         type="radio"
@@ -105,8 +117,16 @@ const RelationshipGoals = () => {
                         checked={selectedGoal === 'shortTerm'}
                         onChange={() => setSelectedGoal('shortTerm')}
                       />
-                      Short Term Relationship
+                      <div className={`${styles.optionCard} ${selectedGoal === 'shortTerm' ? styles.selected : ''}`}>
+                        <div className={styles.optionIcon}>💫</div>
+                        <div className={styles.optionContent}>
+                          <div className={styles.optionTitle}>Short Term</div>
+                          <div className={styles.optionDescription}>Casual dating & fun connections</div>
+                        </div>
+                      </div>
                     </label>
+
+                    {/* Long Term Option Card */}
                     <label className={styles.radioLabel}>
                       <input
                         type="radio"
@@ -115,7 +135,13 @@ const RelationshipGoals = () => {
                         checked={selectedGoal === 'longTerm'}
                         onChange={() => setSelectedGoal('longTerm')}
                       />
-                      Long Term Relationship
+                      <div className={`${styles.optionCard} ${selectedGoal === 'longTerm' ? styles.selected : ''}`}>
+                        <div className={styles.optionIcon}>💕</div>
+                        <div className={styles.optionContent}>
+                          <div className={styles.optionTitle}>Long Term</div>
+                          <div className={styles.optionDescription}>Serious relationship & commitment</div>
+                        </div>
+                      </div>
                     </label>
                   </div>
                 </>
@@ -123,61 +149,80 @@ const RelationshipGoals = () => {
 
               {currentStep === 2 && (
                 <>
-                  <h2>Additional Information</h2>
+                  <h2>Tell us about yourself</h2>
+                  <div className={styles.stepIndicator}>Step 3 of 5</div>
+
                   <div className={styles.inputContainer}>
                     <label>
-                      Location:
+                      Location
                       {locationPermissionDenied ? (
                         <input
                           type="text"
-                          placeholder='Eg: Street, State'
+                          placeholder='Enter your location (e.g., New York, NY)'
                           value={manualLocation}
-                          onChange={(e) => setManualLocation(e.target.value)}
+                          onChange={(e) => {
+                            setManualLocation(e.target.value);
+                            setLocation(e.target.value);
+                          }}
                         />
                       ) : (
-                        <p>{location?.name || 'Location not available'}</p>
+                        <p>{location?.name || 'Detecting location...'}</p>
                       )}
                     </label>
                   </div>
 
-                  <div className={styles.radioContainer}>
-                    <h5>Gender:</h5>
-                    <label className={styles.radioLabel}>
-                      <input
-                        type="radio"
-                        name="gender"
-                        value="male"
-                        checked={gender === 'male'}
-                        onChange={() => setGender('male')}
-                      />
-                      Male
-                    </label>
-                    <label className={styles.radioLabel}>
-                      <input
-                        type="radio"
-                        name="gender"
-                        value="female"
-                        checked={gender === 'female'}
-                        onChange={() => setGender('female')}
-                      />
-                      Female
-                    </label>
-                    <label className={styles.radioLabel}>
-                      <input
-                        type="radio"
-                        name="gender"
-                        value="other"
-                        checked={gender === 'other'}
-                        onChange={() => setGender('other')}
-                      />
-                      Other
-                    </label>
+                  <div className={styles.genderSection}>
+                    <h5>Your Gender</h5>
+                    <div className={styles.genderOptions}>
+                      <label>
+                        <input
+                          type="radio"
+                          name="gender"
+                          value="male"
+                          checked={gender === 'male'}
+                          onChange={() => setGender('male')}
+                        />
+                        <div className={`${styles.genderPill} ${gender === 'male' ? styles.selected : ''}`}>
+                          Male
+                        </div>
+                      </label>
+
+                      <label>
+                        <input
+                          type="radio"
+                          name="gender"
+                          value="female"
+                          checked={gender === 'female'}
+                          onChange={() => setGender('female')}
+                        />
+                        <div className={`${styles.genderPill} ${gender === 'female' ? styles.selected : ''}`}>
+                          Female
+                        </div>
+                      </label>
+
+                      <label>
+                        <input
+                          type="radio"
+                          name="gender"
+                          value="other"
+                          checked={gender === 'other'}
+                          onChange={() => setGender('other')}
+                        />
+                        <div className={`${styles.genderPill} ${gender === 'other' ? styles.selected : ''}`}>
+                          Other
+                        </div>
+                      </label>
+                    </div>
                   </div>
                 </>
               )}
 
-              <button className={styles.nextButton} onClick={handleNext} disabled={isLoading}>
-                {currentStep === 1 ? 'Next' : 'Submit'}
+              <button
+                className={styles.nextButton}
+                onClick={handleNext}
+                disabled={isLoading || (currentStep === 2 && !gender)}
+              >
+                {currentStep === 1 ? 'Continue' : 'Complete'}
               </button>
             </>
           )}

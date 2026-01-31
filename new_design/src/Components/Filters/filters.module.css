@@ -1,37 +1,205 @@
-.filters {
-    background-color: #f9f3fc;
-    border-radius: 25px;
-    display: flex;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 10px;
-    border: 4px solid white;
+/* ============================================
+   Filters Component - Modern Pill Design
+   Phase 4: Filters Component Modernization
+   ============================================ */
+
+/* ========== Filters Section Container ========== */
+
+.filtersSection {
+  background: white;
+  border-radius: 20px;
+  padding: 12px;
+  margin: 16px 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+/* ========== Filters Container ========== */
+
+.filtersContainer {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ========== Filter Pill (Inactive) ========== */
+
+.filterPill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 50px;
+  background: rgba(75, 19, 79, 0.05);
+  border: 2px solid transparent;
+  color: #4B134F;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.filterPill:hover {
+  background: rgba(75, 19, 79, 0.1);
+  border-color: rgba(75, 19, 79, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(75, 19, 79, 0.15);
+}
+
+.filterPill:active {
+  transform: translateY(0);
+}
+
+/* ========== Filter Pill (Active) ========== */
+
+.filterPillActive {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+  border: 2px solid transparent;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  user-select: none;
+  box-shadow: 0 4px 16px rgba(75, 19, 79, 0.3);
+}
+
+.filterPillActive:hover {
+  background: linear-gradient(135deg, #5B1D5F 0%, #FF5091 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(75, 19, 79, 0.4);
+}
+
+.filterPillActive:active {
+  transform: translateY(0);
+}
+
+/* ========== Filter Icon ========== */
+
+.filterIcon {
+  font-size: 16px;
+  transition: transform 0.3s ease;
+}
+
+.filterPillActive .filterIcon {
+  animation: iconPop 0.5s ease;
+}
+
+@keyframes iconPop {
+  0%, 100% {
+    transform: scale(1);
   }
-  
-  .filterButton {
-    flex: 1;
-    text-align: center;
-    padding: 10px 15px;
-    border-radius: 25px;
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* ========== Filter Label ========== */
+
+.filterLabel {
+  font-size: 14px;
+}
+
+/* ========== Responsive Design ========== */
+
+/* Mobile: < 576px */
+@media (max-width: 575px) {
+  .filtersSection {
+    border-radius: 16px;
+    padding: 10px;
+    margin: 12px 0;
+  }
+
+  .filtersContainer {
+    gap: 8px;
+  }
+
+  .filterPill,
+  .filterPillActive {
+    padding: 10px 18px;
+    font-size: 13px;
+  }
+
+  .filterIcon {
     font-size: 14px;
-    color: #000;
-    cursor: pointer;
-    background-color: transparent;
   }
-  
-  .filterButtonActive {
-    flex: 1;
-    text-align: center;
-    padding: 10px 15px;
-    margin: 0 5px;
-    border-radius: 25px;
-    font-size: 14px;
-    color: blue;
-    background-color: white;
-    cursor: pointer;
+
+  .filterLabel {
+    font-size: 13px;
   }
-  
-  .filterButton:hover,
-  .filterButtonActive:hover {
-    text-decoration: none;
+}
+
+/* Tablet: 576px - 991px */
+@media (min-width: 576px) and (max-width: 991px) {
+  .filtersSection {
+    padding: 11px;
+    margin: 14px 0;
   }
-  
+
+  .filtersContainer {
+    gap: 10px;
+  }
+}
+
+/* Desktop: 992px+ */
+@media (min-width: 992px) {
+  .filtersContainer {
+    gap: 16px;
+  }
+
+  .filterPill,
+  .filterPillActive {
+    padding: 14px 28px;
+  }
+}
+
+/* ========== Accessibility ========== */
+
+.filterPill:focus-visible,
+.filterPillActive:focus-visible {
+  outline: 3px solid #FF4081;
+  outline-offset: 2px;
+}
+
+/* ========== Touch Devices ========== */
+
+@media (hover: none) and (pointer: coarse) {
+  .filterPill:hover,
+  .filterPillActive:hover {
+    transform: none;
+  }
+
+  .filterPill:active {
+    transform: scale(0.95);
+  }
+
+  .filterPillActive:active {
+    transform: scale(0.95);
+  }
+}
+
+/* ========== Print Styles ========== */
+
+@media print {
+  .filtersSection {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+
+  .filterPillActive {
+    background: #4B134F;
+  }
+}

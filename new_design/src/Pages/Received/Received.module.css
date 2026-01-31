@@ -1,240 +1,353 @@
+/* Main container */
 .app {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 1rem;
-    height: 100vh;
+    min-height: 100vh;
+    background: linear-gradient(180deg, var(--accent-rose, #F8E8F2) 0%, var(--white, #FFFFFF) 100%);
+    padding-top: 10rem;
 }
 
-.contactList {
-    flex-grow: 1;
+/* Card Grid Layout */
+.receivedGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
     width: 100%;
-    position: relative;
-    top: 9rem;
-    overflow-y: auto;
-    padding: 1rem;
-    background-color: #f5efef;
-    border-radius: 20px;
-    z-index: 999;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    max-width: 1400px;
+    padding: 24px;
+    animation: fadeIn 0.4s ease-in-out;
 }
 
-.contactListContent {
-    position: relative;
-    top: 2rem;
-    z-index: 1000;
-}
-
-.contactGroup {
-    margin: auto;
-    padding: 0.5rem;
-}
-
-.contactGroupLetter {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 1.5rem;
-}
-
-.contactItem {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #a6a1a1;
-}
-
-.contactImg {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 1rem;
-}
-
-.contactInfo {
-    flex: 1;
-}
-
-.contactName {
-    font-weight: bold;
-}
-
-.contactDate {
-    font-size: 0.8rem;
-    color: #666;
-}
-
-.iconContainer {
-    position: relative;
-    display: inline-block;
-    color: #8a8484;
+/* Individual Card */
+.receivedCard {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(75, 19, 79, 0.12);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: staggerFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) backwards;
     cursor: pointer;
 }
 
-.tooltipText {
-    visibility: hidden;
-    width: 80px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 5px;
-    padding: 5px;
+.receivedCard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(75, 19, 79, 0.18);
+}
+
+/* Card Image Container */
+.cardImageContainer {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+
+.cardImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.receivedCard:hover .cardImage {
+    transform: scale(1.1);
+}
+
+.imageGradient {
     position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -40px;
-    opacity: 0;
-    transition: opacity 0.3s;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+    pointer-events: none;
 }
 
-.tooltipText::after {
-    content: "";
+/* Card Info Section */
+.cardInfo {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.cardName {
+    font-family: var(--font-heading, 'Poppins', sans-serif);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gray-900, #212121);
+    margin: 0;
+    background: linear-gradient(135deg, var(--primary-purple, #4B134F) 0%, var(--secondary-pink, #FF4081) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.cardDetails {
+    font-size: 14px;
+    color: var(--gray-600, #757575);
+    margin: 4px 0 0 0;
+}
+
+/* Match Badge */
+.matchBadge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    background: linear-gradient(135deg, var(--primary-purple, #4B134F) 0%, var(--secondary-pink, #FF4081) 100%);
+    border-radius: 20px;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(255, 64, 129, 0.3);
+    white-space: nowrap;
+}
+
+.matchIcon {
+    font-size: 14px;
+}
+
+.matchText {
+    font-family: var(--font-primary, 'Inter', sans-serif);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Received Date */
+.receivedDate {
+    font-size: 13px;
+    color: var(--gray-500, #9E9E9E);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+}
+
+.receivedDate::before {
+    content: "📅";
+    font-size: 14px;
+}
+
+/* Action Buttons */
+.actionButtons {
+    display: flex;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.actionButton {
+    flex: 1;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    font-family: var(--font-primary, 'Inter', sans-serif);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.actionButton:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.actionButton::before {
+    content: '';
     position: absolute;
-    top: 100%;
+    top: 50%;
     left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
 }
 
-.iconContainer:hover .tooltipText {
-    visibility: visible;
-    opacity: 1;
+.actionButton:active::before {
+    width: 300px;
+    height: 300px;
 }
 
+/* Accept Button */
+.acceptButton {
+    background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+    color: white;
+}
 
-@media (max-width: 600px) {
-    .contactList {
-        top: 10rem;
-        border-radius: 15px;
+.acceptButton:hover:not(:disabled) {
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(76, 175, 80, 0.4);
+}
+
+/* Reject Button */
+.rejectButton {
+    background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+    color: white;
+}
+
+.rejectButton:hover:not(:disabled) {
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(255, 107, 107, 0.4);
+}
+
+/* Card Animations */
+.cardAccepting {
+    animation: cardAccept 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.cardRejecting {
+    animation: cardReject 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes cardAccept {
+    0% {
+        transform: scale(1) translateX(0) rotate(0deg);
+        opacity: 1;
     }
-
-    .contactGroupLetter {
-        font-size: 1rem;
-        margin: 0.2rem;
+    50% {
+        transform: scale(1.05) translateX(20px) rotate(5deg);
     }
-
-    .contactItem {
-        padding: 0;
-    }
-
-    .contactImg {
-        width: 40px;
-        height: 40px;
-    }
-
-    .contactName {
-        font-size: 0.9rem;
-    }
-
-    .contactDate {
-        font-size: 0.7rem;
-    }
-
-    .contactActions .closeIcon,
-    .heartIcon {
-        font-size: 1rem;
+    100% {
+        transform: scale(0.8) translateX(150%) rotate(15deg);
+        opacity: 0;
     }
 }
 
-@media (min-width: 601px) and (max-width: 768px) {
-    .contactList {
-        top: 8rem;
-        padding: 1rem;
-        border-radius: 18px;
+@keyframes cardReject {
+    0% {
+        transform: scale(1) translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05) translateX(-20px) rotate(-5deg);
+    }
+    100% {
+        transform: scale(0.8) translateX(-150%) rotate(-15deg);
+        opacity: 0;
+    }
+}
+
+@keyframes staggerFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .app {
+        padding: 0.5rem;
+        padding-top: 9rem;
     }
 
-    .contactGroupLetter {
-        font-size: 1.1rem;
+    .receivedGrid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 16px;
     }
 
-    .contactItem {
-        padding: 0.4rem 0;
+    .cardImageContainer {
+        height: 220px;
     }
 
-    .contactImg {
-        width: 45px;
-        height: 45px;
+    .cardName {
+        font-size: 18px;
     }
 
-    .contactName {
-        font-size: 1rem;
+    .actionButton {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .app {
+        padding-top: 9.5rem;
     }
 
-    .contactDate {
-        font-size: 0.75rem;
+    .receivedGrid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 20px;
     }
 
-    .contactActions .closeIcon,
-    .heartIcon {
-        font-size: 1.1rem;
+    .cardImageContainer {
+        height: 230px;
     }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-    .contactList {
-        top: 11rem;
-        padding: 1.2rem;
-    }
-
-    .contactGroupLetter {
-        font-size: 1.15rem;
-    }
-
-    .contactItem {
-        padding: 0.45rem 0;
-    }
-
-    .contactImg {
-        width: 48px;
-        height: 48px;
-    }
-
-    .contactName {
-        font-size: 1.05rem;
-    }
-
-    .contactDate {
-        font-size: 0.78rem;
-    }
-
-    .contactActions .closeIcon,
-    .heartIcon {
-        font-size: 1.15rem;
+    .receivedGrid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     }
 }
 
 @media (min-width: 1025px) {
-    .contactList {
-        top: 11rem;
-        padding: 1.5rem;
+    .app {
+        padding-top: 11rem;
     }
 
-    .contactGroupLetter {
-        font-size: 1.2rem;
+    .receivedGrid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 28px;
     }
 
-    .contactItem {
-        padding: 0.5rem 0;
+    .cardImageContainer {
+        height: 270px;
     }
+}
 
-    .contactImg {
-        width: 50px;
-        height: 50px;
+/* Animation for button loading state */
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1.05);
     }
-
-    .contactName {
-        font-size: 1.1rem;
+    50% {
+        transform: scale(1.1);
     }
+}
 
-    .contactDate {
-        font-size: 0.8rem;
+.acceptButton:disabled {
+    animation: heartbeat 1s ease infinite;
+}
+
+.rejectButton:disabled {
+    animation: pulse 1.5s ease infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.7;
     }
-
-    .contactActions .closeIcon,
-    .heartIcon {
-        font-size: 1.2rem;
+    50% {
+        opacity: 0.9;
     }
 }

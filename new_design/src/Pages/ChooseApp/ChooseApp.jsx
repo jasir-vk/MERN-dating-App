@@ -32,19 +32,44 @@ const ChooseApp = () => {
       <LandingPage />
       <div className={styles.overlay}>
         <div className={styles.modal}>
-          <h2>Interested</h2>
+          {/* Progress Indicator - All Steps Complete! */}
+          <div className={styles.progressIndicator}>
+            <div className={styles.progressDot}></div>
+            <div className={styles.progressDot}></div>
+            <div className={styles.progressDot}></div>
+            <div className={styles.progressDot}></div>
+            <div className={`${styles.progressDot} ${styles.active}`}></div>
+          </div>
+
+          <h2>Choose Your Journey 💕</h2>
+          <div className={styles.stepIndicator}>Final Step - Almost there!</div>
+          <p className={styles.celebrationText}>
+            You're one step away from finding your perfect match. Choose what brings you here!
+          </p>
+
           <div className={styles.buttonContainer}>
+            {/* Dating Option Card */}
             <button
               className={`${styles.optionButton} ${selectedOption === 'Dating' ? styles.selected : ''}`}
               onClick={() => handleOptionClick('Dating')}
             >
-              Dating
+              <div className={styles.optionIcon}>❤️</div>
+              <div className={styles.optionTitle}>Dating Mode</div>
+              <div className={styles.optionDescription}>
+                Explore connections, meet new people, and have fun dating!
+              </div>
             </button>
+
+            {/* Matrimony Option Card */}
             <button
               className={`${styles.optionButton} ${selectedOption === 'Matrimony' ? styles.selected : ''}`}
               onClick={() => handleOptionClick('Matrimony')}
             >
-              Matrimony
+              <div className={styles.optionIcon}>💍</div>
+              <div className={styles.optionTitle}>Matrimony Mode</div>
+              <div className={styles.optionDescription}>
+                Find your life partner and build a future together
+              </div>
             </button>
           </div>
         </div>

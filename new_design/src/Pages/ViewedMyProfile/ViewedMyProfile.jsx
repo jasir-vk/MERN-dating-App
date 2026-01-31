@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaHeart, FaTimes } from "react-icons/fa";
 import styles from "./ViewedMyProfile.module.css";
 import Header from "../../Components/Header/Header";
@@ -6,10 +6,12 @@ import Footer from "../../Components/Footer/Footer";
 import { VisitProfile } from "../../Services/VisitProfileAPI";
 import LoadingPage from "../../Components/LoadingPage/LoadingPage";
 import { sentFriendRequest } from "../../Services/FriendRequestAPI";
+import default_profile from "../../assets/default_profile.jpg";
+import { ModalContext } from "../../StateManagement/ModalContext";
 
 const groupContacts = (contacts) => {
     return contacts.reduce((acc, contact) => {
-        const firstLetter = contact.viewerId.name.charAt(0).toUpperCase();
+        const firstLetter = contact?.viewerId?.name?.charAt(0).toUpperCase() || '#';
         if (!acc[firstLetter]) {
             acc[firstLetter] = [];
         }
@@ -18,10 +20,15 @@ const groupContacts = (contacts) => {
     }, {});
 };
 const Received = () => {
+    const { setPageName } = useContext(ModalContext);
     const [visitProfiles, setVisitProfiles] = useState({});
     const [loading, setLoading] = useState(true)
     const [message, setMessage] = useState('')
     const [error, setError] = useState('')
+
+    useEffect(() => {
+        setPageName("Viewed My Profile");
+    }, [setPageName]);
 
     useEffect(() => {
         const FetchVisitedProfiles = async () => {
@@ -94,10 +101,10 @@ const Received = () => {
                                 <div className={styles.contactGroupLetter}>{letter}</div>
                                 {visitProfiles[letter].map((visit, index) => (
                                     <div key={index} className={styles.contactItem}>
-                                        <img src={visit.viewerId.profile.profile_image_urls[0]}
-                                            alt={visit.viewerId.name} className={styles.contactImg} />
+                                        <img src={visit?.viewerId?.profile?.profile_image_urls?.[0] || default_profile}
+                                            alt={visit?.viewerId?.name} className={styles.contactImg} />
                                         <div className={styles.contactInfo}>
-                                            <p className={styles.contactName}>{visit.viewerId.name}</p>
+                                            <p className={styles.contactName}>{visit?.viewerId?.name}</p>
                                             <p className={styles.contactDate}>
                                                 {new Date(visit.viewDate).toLocaleDateString()} at {new Date(visit.viewDate).toLocaleTimeString()}
                                             </p>

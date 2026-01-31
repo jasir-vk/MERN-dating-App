@@ -1,0 +1,201 @@
+/* Full Score Container */
+.scoreContainer {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-radius: var(--radius-2xl, 24px);
+    padding: var(--spacing-6, 24px);
+    box-shadow: var(--shadow-lg, 0 10px 15px rgba(0, 0, 0, 0.1));
+    border: 1px solid rgba(75, 19, 79, 0.1);
+    transition: all var(--transition-base, 300ms cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+.scoreContainer:hover {
+    box-shadow: var(--shadow-romantic, 0 10px 40px rgba(255, 64, 129, 0.2));
+    transform: translateY(-2px);
+}
+
+/* Circular Score Display */
+.circularScore {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 16px;
+}
+
+.progressCircle {
+    transition: stroke-dashoffset 1s ease-in-out;
+}
+
+.scoreText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.scoreNumber {
+    display: block;
+    font-size: var(--text-2xl, 32px);
+    font-weight: 700;
+    font-family: var(--font-heading, 'Poppins', sans-serif);
+    background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.scoreLabel {
+    display: block;
+    font-size: var(--text-xs, 12px);
+    color: #757575;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.scoreLabelText {
+    text-align: center;
+    font-size: var(--text-lg, 18px);
+    font-weight: 600;
+    margin-bottom: var(--spacing-4, 16px);
+}
+
+/* Breakdown Section */
+.breakdownSection {
+    margin-top: var(--spacing-6, 24px);
+}
+
+.breakdownToggle {
+    width: 100%;
+    padding: var(--spacing-3, 12px) var(--spacing-4, 16px);
+    background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+    color: white;
+    border: none;
+    border-radius: var(--radius-lg, 12px);
+    font-size: var(--text-sm, 14px);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-base, 300ms);
+}
+
+.breakdownToggle:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(75, 19, 79, 0.3);
+}
+
+.breakdown {
+    margin-top: var(--spacing-4, 16px);
+    animation: slideDown 0.3s ease-out;
+}
+
+.breakdownSubtitle {
+    font-size: var(--text-sm, 14px);
+    color: #757575;
+    margin: 0 0 var(--spacing-4, 16px) 0;
+}
+
+.factor {
+    margin-bottom: var(--spacing-4, 16px);
+}
+
+.factorHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-2, 8px);
+}
+
+.factorName {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2, 8px);
+    font-size: var(--text-sm, 14px);
+    color: #424242;
+    font-weight: 500;
+}
+
+.factorIcon {
+    font-size: var(--text-base, 16px);
+}
+
+.factorScore {
+    font-size: var(--text-sm, 14px);
+    font-weight: 700;
+}
+
+.progressBar {
+    height: 6px;
+    background: #E0E0E0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.8s ease-in-out;
+}
+
+/* Compact Version (for Profile Cards) */
+.compactScore {
+    display: inline-block;
+}
+
+.compactCircle {
+    position: relative;
+    width: 60px;
+    height: 60px;
+}
+
+.compactText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.compactNumber {
+    display: block;
+    font-size: var(--text-base, 16px);
+    font-weight: 700;
+    font-family: var(--font-heading, 'Poppins', sans-serif);
+    background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Animations */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 575px) {
+    .scoreContainer {
+        padding: var(--spacing-4, 16px);
+    }
+
+    .circularScore {
+        width: 100px;
+        height: 100px;
+    }
+
+    .scoreNumber {
+        font-size: var(--text-xl, 24px);
+    }
+
+    .scoreLabelText {
+        font-size: var(--text-base, 16px);
+    }
+}

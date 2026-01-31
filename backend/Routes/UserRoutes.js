@@ -17,10 +17,11 @@ const { getReceiveRequestBackend, AcceptRequestBackend, RejectRequestBackend } =
 const { getRejectedReqBackend } = require('../Controllers/GetRejectedController')
 const { getAcceptedReqBackend } = require('../Controllers/getAcceptController')
 const { ShortListBackend, getShortlistedBackend, removeShortlistBackend, getShortListedByBackend } = require('../Controllers/ShortListController')
-const { FilterQualificationBackend } = require('../Controllers/FilterController')
+const { FilterQualificationBackend, FilterDesignationBackend } = require('../Controllers/FilterController')
 const { fetchMessageProfileBackend } = require('../Controllers/PersonalMessageController')
 const { FetchFriendsBackend } = require('../Controllers/ParentMessageController')
 const { ChattingImageUploadBackend } = require('../Controllers/ChattingImagesController')
+const { getCompatibilityScore, getTopMatches, recalculateCompatibility } = require('../Controllers/MatchingController')
 
 
 
@@ -63,10 +64,14 @@ router.get('/get-acceptedRequest', authentication, getAcceptedReqBackend)
 router.get('/get-shortlisted', authentication, getShortlistedBackend)
 router.get('/get-shortlistedBy', authentication, getShortListedByBackend)
 router.get('/get-filterQualification', authentication, FilterQualificationBackend)
+router.get('/get-filterDesignation', authentication, FilterDesignationBackend)
 router.get('/get-personalMessage-Profile', authentication, fetchMessageProfileBackend)
 router.get('/message-acceptedRequests', authentication, FetchFriendsBackend)
 
-
+// Compatibility & Matching Routes
+router.get('/compatibility/:userId', authentication, getCompatibilityScore)
+router.get('/top-matches', authentication, getTopMatches)
+router.post('/recalculate-compatibility/:userId', authentication, recalculateCompatibility)
 
 
 

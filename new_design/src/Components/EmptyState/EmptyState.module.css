@@ -1,0 +1,100 @@
+.emptyState {
+  text-align: center;
+  padding: 64px 24px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  margin: 24px;
+  box-shadow: 0 8px 24px rgba(75, 19, 79, 0.08);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.iconContainer {
+  margin-bottom: 24px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.icon {
+  font-size: 80px;
+  display: block;
+  filter: drop-shadow(0 4px 12px rgba(75, 19, 79, 0.2));
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: var(--gray-500);
+  margin-bottom: 24px;
+}
+
+.actionButton {
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(255, 64, 129, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.actionButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 64, 129, 0.4);
+}
+
+.actionButton:active {
+  transform: translateY(0);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .emptyState {
+    padding: 48px 20px;
+  }
+
+  .icon {
+    font-size: 64px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+}

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./Sent.module.css";
 import { FaTimes } from "react-icons/fa";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import { getFriendRequest, removeSentRequest } from "../../Services/FriendRequestAPI";
 import LoadingPage from "../../Components/LoadingPage/LoadingPage";
+import { ModalContext } from "../../StateManagement/ModalContext";
 
 const groupContacts = (contacts) => {
     return contacts.reduce((acc, contact) => {
@@ -18,8 +19,13 @@ const groupContacts = (contacts) => {
 };
 
 const Sent = () => {
+    const { setPageName } = useContext(ModalContext);
     const [getSentRequest, setGetFriendRequest] = useState({});
     const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        setPageName("Sent");
+    }, [setPageName]);
 
     useEffect(() => {
         const fetchSentRequest = async () => {

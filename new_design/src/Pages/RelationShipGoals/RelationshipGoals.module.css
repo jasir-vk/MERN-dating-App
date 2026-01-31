@@ -1,81 +1,444 @@
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(2px);
+/* ============================================
+   RelationshipGoals - Modern Card-Based Design
+   Multi-step form with romantic icons
+   ============================================ */
+
+/* ========== Modal Overlay with Gradient Background ========== */
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ========== Modern Modal Container ========== */
+
+.modal {
+  background: #FFFFFF;
+  padding: 40px 32px;
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
   }
-  
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom Scrollbar */
+.modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal::-webkit-scrollbar-track {
+  background: #F5F5F5;
+  border-radius: 10px;
+}
+
+.modal::-webkit-scrollbar-thumb {
+  background: #4B134F;
+  border-radius: 10px;
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+  background: #6B1F6F;
+}
+
+/* ========== Progress Indicator ========== */
+
+.progressIndicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.progressDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #E0E0E0;
+  transition: all 0.3s ease;
+}
+
+.progressDot.active {
+  background: linear-gradient(135deg, #4B134F 0%, #C94B4B 100%);
+  width: 32px;
+  border-radius: 6px;
+}
+
+/* ========== Header Section ========== */
+
+.modal h2 {
+  margin: 0 0 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  text-align: center;
+  color: #212121;
+}
+
+.stepIndicator {
+  text-align: center;
+  color: #9E9E9E;
+  font-size: 14px;
+  margin-bottom: 32px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ========== Card-Based Option Selection ========== */
+
+.radioContainer {
+  margin-bottom: 24px;
+}
+
+.radioLabel {
+  display: block;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.radioLabel input[type="radio"] {
+  display: none;
+}
+
+/* Option Cards for Relationship Goals */
+.optionCard {
+  width: 100%;
+  padding: 24px;
+  border: 3px solid #E0E0E0;
+  border-radius: 16px;
+  background: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
+
+.optionCard:hover {
+  border-color: #4B134F;
+  background: #F8E8F2;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(75, 19, 79, 0.2);
+}
+
+.optionCard.selected {
+  border-color: #4B134F;
+  background: linear-gradient(135deg, #F8E8F2 0%, #E1BEE7 100%);
+  box-shadow: 0 10px 30px rgba(75, 19, 79, 0.3);
+}
+
+.optionCard.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 28px;
+  height: 28px;
+  background: #4B134F;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.optionIcon {
+  font-size: 48px;
+  flex-shrink: 0;
+}
+
+.optionContent {
+  flex: 1;
+  text-align: left;
+}
+
+.optionTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #212121;
+  margin-bottom: 4px;
+  font-family: 'Inter', sans-serif;
+}
+
+.optionDescription {
+  font-size: 14px;
+  color: #616161;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ========== Gender Pills ========== */
+
+.genderSection {
+  margin-bottom: 24px;
+}
+
+.modal h5 {
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #4B134F;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+}
+
+.genderOptions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.genderOptions label input[type="radio"] {
+  display: none;
+}
+
+.genderPill {
+  flex: 1;
+  min-width: 100px;
+  padding: 14px 20px;
+  border: 2px solid #E0E0E0;
+  border-radius: 24px;
+  background: #FFFFFF;
+  cursor: pointer;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.genderPill:hover {
+  border-color: #4B134F;
+  background: #F8E8F2;
+  transform: translateY(-2px);
+}
+
+.genderPill.selected {
+  border-color: #4B134F;
+  background: linear-gradient(135deg, #4B134F 0%, #6B1F6F 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(75, 19, 79, 0.3);
+}
+
+/* ========== Location Input ========== */
+
+.inputContainer {
+  margin-bottom: 24px;
+}
+
+.inputContainer label {
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+  font-weight: 600;
+  color: #4B134F;
+  margin-bottom: 8px;
+  font-family: 'Inter', sans-serif;
+}
+
+.inputContainer input {
+  width: 100%;
+  padding: 16px;
+  margin-top: 8px;
+  font-size: 16px;
+  border: 2px solid #EEEEEE;
+  border-radius: 12px;
+  background: #FAFAFA;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Inter', sans-serif;
+  color: #212121;
+}
+
+.inputContainer input:focus {
+  outline: none;
+  border-color: #4B134F;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 4px rgba(75, 19, 79, 0.1);
+  transform: translateY(-2px);
+}
+
+.inputContainer input::placeholder {
+  color: #9E9E9E;
+}
+
+.inputContainer p {
+  margin-top: 8px;
+  padding: 16px;
+  background: linear-gradient(135deg, #F8E8F2 0%, #E1BEE7 100%);
+  border: 2px solid #4B134F;
+  border-radius: 12px;
+  font-size: 16px;
+  color: #212121;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.inputContainer p::before {
+  content: '📍';
+  font-size: 20px;
+}
+
+/* ========== Next/Submit Button ========== */
+
+.nextButton {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(135deg, #4B134F 0%, #C94B4B 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  box-shadow: 0 10px 40px rgba(75, 19, 79, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 16px;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.nextButton::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.nextButton:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.nextButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 50px rgba(75, 19, 79, 0.4);
+}
+
+.nextButton:active {
+  transform: translateY(0);
+}
+
+.nextButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ========== Responsive Design ========== */
+
+/* Mobile: 320px - 480px */
+@media (max-width: 480px) {
   .modal {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 400px;
+    width: 95%;
+    padding: 24px 16px;
+    max-height: 95vh;
   }
-  
+
   .modal h2 {
-    margin: 0 0 10px;
-    font-size: 24px;
+    font-size: 22px;
+  }
+
+  .optionCard {
+    padding: 20px;
+    flex-direction: column;
     text-align: center;
   }
-  
-  .radioContainer {
-    margin-bottom: 20px;
+
+  .optionIcon {
+    font-size: 40px;
   }
-  
-  .radioLabel {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+
+  .optionContent {
+    text-align: center;
   }
-  
-  .radioLabel input {
-    margin-right: 10px;
-  }
-  
-  .inputContainer {
-    margin-bottom: 20px;
-  }
-  
-  .inputContainer label {
-    display: flex;
-    flex-direction: column;
-    font-size: 16px;
-  }
-  
-  .inputContainer input {
-    margin-top: 5px;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .nextButton {
-    background-color: #333;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-  }
-  
-  .nextButton:hover {
-    background-color: #555;
-  }
-  
-  .modal h5 {
-    margin-bottom: 10px;
+
+  .optionTitle {
     font-size: 18px;
   }
-  
-  
+
+  .genderOptions {
+    flex-direction: column;
+  }
+
+  .genderPill {
+    min-width: auto;
+  }
+
+  .inputContainer input,
+  .nextButton {
+    font-size: 16px; /* Prevent iOS zoom */
+  }
+
+  .nextButton {
+    padding: 16px;
+  }
+}
+
+/* Tablet: 481px - 768px */
+@media (min-width: 481px) and (max-width: 768px) {
+  .modal {
+    width: 85%;
+    max-width: 600px;
+    padding: 32px 24px;
+  }
+}
+
+/* Desktop: 769px+ */
+@media (min-width: 769px) {
+  .modal {
+    width: 80%;
+    max-width: 500px;
+  }
+
+  .optionCard:hover {
+    box-shadow: 0 12px 35px rgba(75, 19, 79, 0.25);
+  }
+}
+
+/* ========== Accessibility ========== */
+
+.optionCard:focus-visible,
+.genderPill:focus-visible,
+.nextButton:focus-visible {
+  outline: 3px solid #FF4081;
+  outline-offset: 2px;
+}

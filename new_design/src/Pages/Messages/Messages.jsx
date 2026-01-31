@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import styles from "./Messages.module.css";
 import Header from "../../Components/Header/Header";
@@ -6,10 +6,16 @@ import Footer from "../../Components/Footer/Footer";
 import { Link } from "react-router-dom";
 import { fetchAcceptedRequests } from "../../Services/ParentMessageAPI";
 import LoadingPage from "../../Components/LoadingPage/LoadingPage";
+import { ModalContext } from "../../StateManagement/ModalContext";
 
 const Messages = () => {
+    const { setPageName } = useContext(ModalContext);
     const [accepetedequets, setAcceptedRequests] = useState([])
     const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        setPageName("Message");
+    }, [setPageName]);
 
     useEffect(() => {
         const fetchFriends = async () => {

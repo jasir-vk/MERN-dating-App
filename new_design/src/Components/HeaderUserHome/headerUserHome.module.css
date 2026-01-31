@@ -1,53 +1,229 @@
+/* ============================================
+   HeaderUserHome - Modern Glassmorphism Design
+   Phase 2: Header Component Modernization
+   ============================================ */
+
+/* ========== Header Container with Glassmorphism ========== */
+
 .header {
-  background-color: #f5ebf5;
-  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(75, 19, 79, 0.1);
+  padding: 16px 24px;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
+.headerLeft,
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ========== Logo with Gradient Text ========== */
 
 .title {
-  color: #6a1b9a; 
-  font-size: 1.5rem;
-  margin-left: 10px; 
+  background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  font-size: 24px;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: -0.5px;
+  margin: 0;
+  margin-left: 12px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  user-select: none;
 }
 
-.menuIcon {
-  color: #6a1b9a; 
-  margin-right: 10px;
-  cursor: pointer;
+.title:hover {
+  transform: scale(1.05);
 }
+
+/* ========== Menu Icon Button ========== */
+
+.menuIcon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4B134F;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 50%;
+  padding: 12px;
+}
+
+.menuIcon:hover {
+  background: rgba(75, 19, 79, 0.1);
+  transform: scale(1.1);
+}
+
+.menuIcon:active {
+  transform: scale(0.95);
+}
+
+/* ========== Notification Icon Container ========== */
 
 .notificationIcon {
   position: relative;
-  margin-right: 15px; 
+  margin-right: 16px;
 }
 
 .iconCircle {
-  width: 40px;
-  height: 40px;
-  background-color: white; 
-  border: 1px solid #b8a6c3; 
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(75, 19, 79, 0.15);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #5a1882; 
+  color: #4B134F;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
+
+.iconCircle:hover {
+  background: linear-gradient(135deg, rgba(75, 19, 79, 0.1) 0%, rgba(255, 64, 129, 0.1) 100%);
+  border-color: #4B134F;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(75, 19, 79, 0.15);
+}
+
+.iconCircle:active {
+  transform: scale(0.95);
+}
+
+/* ========== Notification Badge with Pulse ========== */
 
 .notificationDot {
-  width: 7px;
-  height: 7px;
-  background-color: #f275ba; 
+  width: 10px;
+  height: 10px;
+  background: #FF4081;
+  border: 2px solid white;
   border-radius: 50%;
   position: absolute;
-  top: 10px;
-  right: 10px;
-  border: 2px solid white; 
+  top: 6px;
+  right: 6px;
+  box-shadow: 0 2px 6px rgba(255, 64, 129, 0.4);
+  animation: pulse 2s infinite;
 }
 
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+/* ========== Avatar Image ========== */
+
 .avatar {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  border: 2px solid #ddd; 
+  border: 3px solid transparent;
+  background-image: linear-gradient(white, white),
+                    linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
   cursor: pointer;
+  object-fit: cover;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.avatar:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(75, 19, 79, 0.25);
+}
+
+.avatar:active {
+  transform: scale(0.95);
+}
+
+/* ========== Responsive Design ========== */
+
+/* Mobile: < 576px */
+@media (max-width: 575px) {
+  .header {
+    padding: 12px 16px;
+  }
+
+  .title {
+    font-size: 20px;
+    margin-left: 8px;
+  }
+
+  .iconCircle,
+  .menuIcon,
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .notificationIcon {
+    margin-right: 12px;
+  }
+
+  .notificationDot {
+    width: 8px;
+    height: 8px;
+    top: 5px;
+    right: 5px;
+  }
+}
+
+/* Tablet: 576px - 991px */
+@media (min-width: 576px) and (max-width: 991px) {
+  .header {
+    padding: 14px 20px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+}
+
+/* ========== Accessibility ========== */
+
+.menuIcon:focus-visible,
+.iconCircle:focus-visible,
+.avatar:focus-visible {
+  outline: 3px solid #FF4081;
+  outline-offset: 2px;
+}
+
+/* ========== Print Styles ========== */
+
+@media print {
+  .header {
+    position: relative;
+    background: white;
+    box-shadow: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .title {
+    -webkit-text-fill-color: #4B134F;
+  }
 }

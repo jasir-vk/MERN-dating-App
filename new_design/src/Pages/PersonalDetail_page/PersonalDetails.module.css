@@ -1,139 +1,527 @@
+/* ============================================
+   PersonalDetail Form - Modern Dating App Design
+   Redesigned with gradients, animations, and modern UI
+   ============================================ */
+
+/* ========== Modal Overlay with Gradient Background ========== */
+
 .modalOverlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.3s ease;
+  z-index: 1050;
 }
+
+/* ========== Modern Modal Container ========== */
 
 .modal {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 80%;
-  max-width: 400px;
+  background: #FFFFFF;
+  padding: 40px 32px;
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.modal h2 {
-  margin: 0 0 10px;
-  font-size: 24px;
-  text-align: center;
+/* Custom Scrollbar Styling */
+.modal::-webkit-scrollbar {
+  width: 8px;
 }
+
+.modal::-webkit-scrollbar-track {
+  background: #F5F5F5;
+  border-radius: 10px;
+}
+
+.modal::-webkit-scrollbar-thumb {
+  background: #4B134F;
+  border-radius: 10px;
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+  background: #6B1F6F;
+}
+
+/* ========== Progress Indicator ========== */
+
+.progressIndicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.progressDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #E0E0E0;
+  transition: all 0.3s ease;
+}
+
+.progressDot.active {
+  background: linear-gradient(135deg, #4B134F 0%, #C94B4B 100%);
+  width: 32px;
+  border-radius: 6px;
+}
+
+/* ========== Header Section ========== */
+
+.modal h2 {
+  margin: 0 0 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  text-align: center;
+  color: #212121;
+}
+
+.stepIndicator {
+  text-align: center;
+  color: #9E9E9E;
+  font-size: 14px;
+  margin-bottom: 32px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ========== Section Headers ========== */
+
+.sectionHeader {
+  font-size: 18px;
+  font-weight: 600;
+  color: #4B134F;
+  margin: 24px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ========== Form Container ========== */
 
 .personalDetailsForm {
   display: flex;
   flex-direction: column;
 }
 
-.personalDetailsForm input[type="text"],
-.personalDetailsForm input[type="file"] {
-  display: block;
-  width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 0.4rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-.profilePicContainer,
-.additionalImagesContainer,
-.shortReelContainer {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.thumbnail {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  margin: 5px;
-  border-radius: 5px;
-}
-
-.thumbnailContainer {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
-
-.circle,
-.square {
-  display: inline-block;
-  width: 20vw;
-  height: 20vw;
-  max-width: 55px;
-  max-height: 55px;
-  border: 2px dashed #ccc;
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-  margin: 0 5px;
-}
-
-.circle {
-  border-radius: 50%;
-}
-
-.circle input[type="file"],
-.square input[type="file"] {
-  display: none;
-}
-
-.icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.5rem;
-  color: #999;
-}
-
-button {
-  display: block;
-  width: 100%;
-  padding: 0.625rem;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  box-sizing: border-box;
-}
+/* ========== Modern Image Upload Grid ========== */
 
 .imageUploadersContainer {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
 }
 
-.imageUploaderWrapper,
-.reelUploaderWrapper {
-  width: 100px;
-  height: 100px;
-  border: 2px dashed #ccc;
-  border-radius: 10px;
+.imageUploaderWrapper {
+  aspect-ratio: 1;
+  border: 3px dashed #E0E0E0;
+  border-radius: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   overflow: hidden;
+  background: linear-gradient(135deg, #FAFAFA 0%, #F5F5F5 100%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
 
+.imageUploaderWrapper:hover {
+  border-color: #4B134F;
+  background: linear-gradient(135deg, #F8E8F2 0%, #E1BEE7 100%);
+  transform: scale(1.05);
+}
+
+.imageUploaderWrapper.hasImage {
+  border-style: solid;
+  border-color: #4B134F;
+  border-width: 2px;
+}
+
+/* Image Uploader Label */
+.imageUploader {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Upload Icon with Gradient */
 .uploadIcon {
-  font-size: 40px;
+  font-size: 32px;
+  background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.uploadedImage,
+/* Better Image Preview */
+.uploadedImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.imageUploaderWrapper:hover .uploadedImage {
+  transform: scale(1.1);
+}
+
+/* Edit Overlay on Hover */
+.imageUploaderWrapper::after {
+  content: '✎';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: rgba(75, 19, 79, 0.8);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.imageUploaderWrapper.hasImage:hover::after {
+  opacity: 1;
+}
+
+/* ========== Video/Reel Upload ========== */
+
+.reelUploaderWrapper {
+  width: 100%;
+  aspect-ratio: 9/16;
+  max-width: 200px;
+  margin: 0 auto 24px;
+  border: 3px dashed #E0E0E0;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+  background: linear-gradient(135deg, #FAFAFA 0%, #F5F5F5 100%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.reelUploaderWrapper:hover {
+  border-color: #FF4081;
+  background: linear-gradient(135deg, #FCE4EC 0%, #F8BBD0 100%);
+  transform: scale(1.02);
+}
+
+.reelUploader {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.reelLabel {
+  font-size: 12px;
+  color: #616161;
+  margin-top: 8px;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+}
+
 .uploadedReel {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* ========== Modern Text Inputs ========== */
+
+.personalDetailsForm input[type="text"],
+.personalDetailsForm input[type="date"],
+.personalDetailsForm input[type="number"] {
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  border: 2px solid #EEEEEE;
+  border-radius: 12px;
+  background: #FAFAFA;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Inter', sans-serif;
+  color: #212121;
+}
+
+.personalDetailsForm input[type="text"]:focus,
+.personalDetailsForm input[type="date"]:focus,
+.personalDetailsForm input[type="number"]:focus {
+  outline: none;
+  border-color: #4B134F;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 4px rgba(75, 19, 79, 0.1);
+}
+
+.personalDetailsForm input::placeholder {
+  color: #9E9E9E;
+}
+
+/* ========== Textarea (if needed for bio) ========== */
+
+.personalDetailsForm textarea {
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  border: 2px solid #EEEEEE;
+  border-radius: 12px;
+  background: #FAFAFA;
+  font-family: 'Inter', sans-serif;
+  resize: vertical;
+  min-height: 100px;
+  transition: all 0.3s ease;
+  color: #212121;
+}
+
+.personalDetailsForm textarea:focus {
+  outline: none;
+  border-color: #4B134F;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 4px rgba(75, 19, 79, 0.1);
+}
+
+.personalDetailsForm textarea::placeholder {
+  color: #9E9E9E;
+}
+
+/* ========== Submit Button ========== */
+
+button[type="submit"] {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(135deg, #4B134F 0%, #C94B4B 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  box-shadow: 0 10px 40px rgba(75, 19, 79, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 16px;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+button[type="submit"]::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+button[type="submit"]:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 50px rgba(75, 19, 79, 0.4);
+}
+
+button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ========== Character Counter ========== */
+
+.characterCounter {
+  text-align: right;
+  font-size: 12px;
+  color: #9E9E9E;
+  margin-top: -12px;
+  margin-bottom: 16px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ========== Responsive Design ========== */
+
+/* Mobile: 320px - 480px */
+@media (max-width: 480px) {
+  .modal {
+    width: 95%;
+    padding: 24px 16px;
+    max-height: 95vh;
+  }
+
+  .modal h2 {
+    font-size: 22px;
+  }
+
+  .imageUploadersContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .uploadIcon {
+    font-size: 28px;
+  }
+
+  .reelUploaderWrapper {
+    max-width: 180px;
+  }
+
+  .personalDetailsForm input[type="text"],
+  .personalDetailsForm input[type="date"],
+  .personalDetailsForm input[type="number"],
+  .personalDetailsForm textarea,
+  button[type="submit"] {
+    font-size: 16px; /* Prevent iOS zoom */
+  }
+
+  button[type="submit"] {
+    padding: 16px;
+  }
+}
+
+/* Tablet: 481px - 768px */
+@media (min-width: 481px) and (max-width: 768px) {
+  .modal {
+    width: 85%;
+    max-width: 600px;
+    padding: 32px 24px;
+  }
+
+  .imageUploadersContainer {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Desktop: 769px+ */
+@media (min-width: 769px) {
+  .modal {
+    width: 80%;
+    max-width: 500px;
+  }
+
+  /* Add hover effects only on desktop */
+  .imageUploaderWrapper:hover {
+    box-shadow: 0 4px 12px rgba(75, 19, 79, 0.15);
+  }
+}
+
+/* ========== Success/Error Messages ========== */
+
+.modal p {
+  margin: 16px 0;
+  font-size: 14px;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.modal p[style*="green"] {
+  background: #E8F5E9;
+  color: #2E7D32;
+  border: 1px solid #4CAF50;
+}
+
+.modal p[style*="red"] {
+  background: #FFEBEE;
+  color: #C62828;
+  border: 1px solid #F44336;
+}
+
+/* ========== Accessibility ========== */
+
+.imageUploader:focus-visible,
+.reelUploader:focus-visible {
+  outline: 3px solid #4B134F;
+  outline-offset: 2px;
+}
+
+button[type="submit"]:focus-visible {
+  outline: 3px solid #FF4081;
+  outline-offset: 2px;
+}
+
+/* ========== Loading State ========== */
+
+.loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  transform: translate(-50%, -50%);
+}
+
+/* ========== Validation Error Animation ========== */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.validationError {
+  animation: shake 0.4s ease-in-out;
+}
+
+/* ========== Slide Down Animation for Messages ========== */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

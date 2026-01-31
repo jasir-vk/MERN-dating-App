@@ -1,60 +1,253 @@
+/* ============================================
+   Stories Component - Modern Instagram-Style
+   Phase 3: Stories Component Modernization
+   ============================================ */
+
+/* ========== Stories Section Container ========== */
+
+.storiesSection {
+  background: white;
+  border-radius: 24px;
+  padding: 20px;
+  margin: 16px 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  position: relative;
+}
+
+/* ========== Stories Container with Scroll ========== */
+
 .stories {
   display: flex;
-  padding: 1rem;
-  background-color: #fdf2f8; 
+  gap: 16px;
   overflow-x: auto;
-  white-space: nowrap;
+  scroll-behavior: smooth;
+  padding: 8px 0;
+
+  /* Hide scrollbar but keep functionality */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
+
+.stories::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
+}
+
+/* ========== Individual Story Item ========== */
 
 .story {
-  text-align: center;
-  margin-right: 0.5rem; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
-.story:last-child {
-  margin-right: 0;
+.story:hover {
+  transform: translateY(-4px);
 }
+
+/* ========== Story Circle with Gradient Border ========== */
 
 .storyImage {
   position: relative;
-  width: 70px;
-  height: 70px;
-  margin: 0 auto;
+  width: 80px;
+  height: 80px;
+  padding: 3px;
+  background: linear-gradient(135deg, #FF4081 0%, #4B134F 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s ease;
 }
 
-.storyImage.hasBorder {
-  border: 2px solid #ec9ab6; 
+/* Viewed stories have gray border */
+.storyImage.viewed {
+  background: #E0E0E0;
+}
+
+/* No border for My Story */
+.storyImage.myStory {
+  background: #E0E0E0;
+}
+
+.storyImage:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(75, 19, 79, 0.2);
+}
+
+/* ========== Story Image Container ========== */
+
+.storyImageContainer {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid white;
+  position: relative;
 }
 
 .story img {
-  width: 60px;
-  height: 60px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 50%;
 }
 
+/* ========== Add Icon for My Story ========== */
+
 .addIcon {
   position: absolute;
-  bottom: 2px; 
-  right: 2px; 
-  background-color: #ec9ab6;
-  color: white;
-  width: 22px;
-  height: 22px;
+  bottom: 0;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+  border: 3px solid white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  color: white;
+  font-size: 18px;
   font-weight: bold;
-  border: 2px solid white;
+  box-shadow: 0 2px 8px rgba(75, 19, 79, 0.3);
+  animation: pulse 2s infinite;
+  z-index: 2;
 }
 
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(75, 19, 79, 0.3);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(75, 19, 79, 0.5);
+  }
+}
+
+/* ========== Story Name ========== */
+
 .story p {
-  margin: 0.5rem 0 0;
-  font-size: 1rem;
-  color: #333;
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  color: #212121;
+  margin: 0;
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* ========== Gradient Fade on Edges ========== */
+
+.storiesWrapper {
+  position: relative;
+}
+
+.storiesWrapper::before,
+.storiesWrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.storiesWrapper::before {
+  left: 0;
+  background: linear-gradient(to right, white, transparent);
+}
+
+.storiesWrapper::after {
+  right: 0;
+  background: linear-gradient(to left, white, transparent);
+}
+
+/* ========== Responsive Design ========== */
+
+/* Mobile: < 576px */
+@media (max-width: 575px) {
+  .storiesSection {
+    border-radius: 16px;
+    padding: 16px;
+    margin: 12px 0;
+  }
+
+  .stories {
+    gap: 12px;
+  }
+
+  .storyImage {
+    width: 70px;
+    height: 70px;
+  }
+
+  .addIcon {
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+  }
+
+  .story p {
+    font-size: 11px;
+    max-width: 70px;
+  }
+
+  .storiesWrapper::before,
+  .storiesWrapper::after {
+    width: 30px;
+  }
+}
+
+/* Tablet: 576px - 991px */
+@media (min-width: 576px) and (max-width: 991px) {
+  .storiesSection {
+    padding: 18px;
+    margin: 14px 0;
+  }
+
+  .storyImage {
+    width: 75px;
+    height: 75px;
+  }
+}
+
+/* Desktop: 992px+ */
+@media (min-width: 992px) {
+  .stories {
+    gap: 20px;
+  }
+
+  .storyImage {
+    width: 85px;
+    height: 85px;
+  }
+}
+
+/* ========== Accessibility ========== */
+
+.story:focus-visible {
+  outline: 3px solid #FF4081;
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+/* ========== Touch Devices ========== */
+
+@media (hover: none) and (pointer: coarse) {
+  .story:hover {
+    transform: none;
+  }
+
+  .story:active {
+    transform: scale(0.95);
+  }
 }

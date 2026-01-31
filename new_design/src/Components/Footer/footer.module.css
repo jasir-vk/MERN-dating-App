@@ -1,40 +1,287 @@
-.footer {
-  background-color: #fefefe; 
-  border-radius: 50px; 
-  padding: 5px 15px; 
-  display: flex;
-  justify-content: space-between; 
-  align-items: center;
+/* ============================================
+   Footer - Modern Floating Dock Design
+   Phase 7: Footer Navigation Modernization
+   ============================================ */
+
+/* ========== Footer Container ========== */
+
+.footerContainer {
   position: fixed;
-  bottom: 0px; 
-  left: 5%;
-  right: 5%;
-  width: 90%; 
-  z-index: 1000;
-  margin: 0 auto;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 998;
+  width: calc(100% - 32px);
+  max-width: 500px;
+  padding: 0 16px;
 }
 
-.iconButton {
+/* ========== Footer Navigation ========== */
+
+.footerNav {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 30px;
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 8px 32px rgba(75, 19, 79, 0.15),
+              0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ========== Navigation Button ========== */
+
+.navButton {
+  position: relative;
   background: none;
   border: none;
-  font-size: 1.3rem; 
-  color: #a4a4a4;
-  margin: 0 8px; 
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px; 
-  height: 50px; 
-  border-radius: 50%; 
-  transition: background-color 0.3s, color 0.3s; 
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #9E9E9E;
+  font-size: 22px;
 }
 
-.iconButton.active {
-  color: #fff;
-  background-color: #e6007e; 
+.navButton:hover {
+  background: rgba(75, 19, 79, 0.08);
+  color: #4B134F;
+  transform: translateY(-4px);
+}
+
+.navButton:active {
+  transform: translateY(-2px);
+}
+
+/* ========== Active Button ========== */
+
+.navButton.active {
+  background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+  color: white;
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(75, 19, 79, 0.4);
+}
+
+.navButton.active:hover {
+  background: linear-gradient(135deg, #5B1D5F 0%, #FF5091 100%);
+  transform: translateY(-10px);
+  box-shadow: 0 10px 24px rgba(75, 19, 79, 0.5);
+}
+
+/* ========== Nav Icon ========== */
+
+.navIcon {
+  font-size: 22px;
+  transition: transform 0.3s ease;
+}
+
+.navButton.active .navIcon {
+  animation: iconBounce 0.6s ease;
+}
+
+@keyframes iconBounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.3);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  70% {
+    transform: scale(1.1);
+  }
+}
+
+/* ========== Nearby Icon (Rainbow Gradient) ========== */
+
+.nearbyIcon {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  padding: 8px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  padding: 2px;
 }
 
+.nearbyGradient {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(
+    #FF4081 0deg,
+    #FF5722 60deg,
+    #FFC107 120deg,
+    #4CAF50 180deg,
+    #2196F3 240deg,
+    #9C27B0 300deg,
+    #FF4081 360deg
+  );
+  animation: rotate 3s linear infinite;
+}
 
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.navButton.active .nearbyGradient {
+  animation: rotate 1.5s linear infinite;
+}
+
+/* ========== Active Indicator ========== */
+
+.activeIndicator {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.6);
+}
+
+/* ========== Responsive Design ========== */
+
+/* Mobile: < 576px */
+@media (max-width: 575px) {
+  .footerContainer {
+    bottom: 12px;
+    width: calc(100% - 24px);
+    padding: 0 12px;
+  }
+
+  .footerNav {
+    padding: 6px 8px;
+    border-radius: 26px;
+  }
+
+  .navButton {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+
+  .navIcon {
+    font-size: 20px;
+  }
+
+  .nearbyIcon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .navButton.active {
+    transform: translateY(-6px);
+  }
+
+  .navButton.active:hover {
+    transform: translateY(-8px);
+  }
+}
+
+/* Tablet: 576px - 767px */
+@media (min-width: 576px) and (max-width: 767px) {
+  .footerNav {
+    padding: 7px 10px;
+  }
+
+  .navButton {
+    width: 52px;
+    height: 52px;
+    font-size: 21px;
+  }
+}
+
+/* Desktop: 992px+ */
+@media (min-width: 992px) {
+  .footerContainer {
+    bottom: 20px;
+    max-width: 550px;
+  }
+
+  .footerNav {
+    padding: 10px 14px;
+  }
+
+  .navButton {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+  }
+
+  .navIcon {
+    font-size: 24px;
+  }
+
+  .nearbyIcon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .navButton.active {
+    transform: translateY(-10px);
+  }
+
+  .navButton.active:hover {
+    transform: translateY(-12px);
+  }
+}
+
+/* ========== Accessibility ========== */
+
+.navButton:focus-visible {
+  outline: 3px solid #FF4081;
+  outline-offset: 4px;
+}
+
+/* ========== Touch Devices ========== */
+
+@media (hover: none) and (pointer: coarse) {
+  .navButton:hover {
+    background: none;
+    color: #9E9E9E;
+    transform: none;
+  }
+
+  .navButton:active {
+    background: rgba(75, 19, 79, 0.1);
+    transform: scale(0.95);
+  }
+
+  .navButton.active {
+    transform: translateY(-6px);
+  }
+
+  .navButton.active:hover {
+    transform: translateY(-6px);
+  }
+
+  .navButton.active:active {
+    transform: translateY(-4px) scale(0.95);
+  }
+}
+
+/* ========== Print Styles ========== */
+
+@media print {
+  .footerContainer {
+    display: none;
+  }
+}

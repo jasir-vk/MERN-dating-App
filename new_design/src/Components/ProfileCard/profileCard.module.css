@@ -1,81 +1,237 @@
+/* ============================================
+   ProfileCard - Instagram-style Card Component
+   Phase 9: Critical User Flows - MatchesPage
+   ============================================ */
+
 .profileCard {
-    position: relative;
-    width: 180px;
-    height: 300px;
-    border-radius: 15px;
-    overflow: hidden;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 2px solid #ec9ab6;
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  position: relative;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  aspect-ratio: 3/4;
+  width: 100%;
+}
+
+.profileCard:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 16px 40px rgba(75, 19, 79, 0.25);
+}
+
+.profileCard:active {
+  transform: translateY(-10px);
+}
+
+/* ============================================
+   Match Badge
+   ============================================ */
+.matchBadge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--primary-purple, #4B134F) 0%, var(--secondary-pink, #FF4081) 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 0 0 12px 12px;
+  font-family: var(--font-primary, 'Inter', sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+}
+
+/* Color-coded match badges */
+.matchBadgeHigh {
+  background: linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%);
+}
+
+.matchBadgeMedium {
+  background: linear-gradient(135deg, #EF6C00 0%, #FF9800 100%);
+}
+
+.matchBadgeLow {
+  background: linear-gradient(135deg, var(--primary-purple, #4B134F) 0%, var(--secondary-pink, #FF4081) 100%);
+}
+
+/* ============================================
+   Image Container & Image
+   ============================================ */
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(75, 19, 79, 0.1) 0%, rgba(255, 64, 129, 0.1) 100%);
+}
+
+.profileImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.profileCard:hover .profileImage {
+  transform: scale(1.15);
+}
+
+/* ============================================
+   Profile Overlay
+   ============================================ */
+.profileOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+  padding: 12px;
+  color: white;
+  z-index: 1;
+  text-align: left;
+}
+
+.profileDistance {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-family: var(--font-primary, 'Inter', sans-serif);
+  font-size: 10px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  letter-spacing: 0.3px;
+}
+
+.profileName {
+  font-family: var(--font-heading, 'Poppins', sans-serif);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 2px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.profileLocation {
+  font-family: var(--font-primary, 'Inter', sans-serif);
+  font-size: 11px;
+  font-weight: 500;
+  opacity: 0.9;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   Online Status Indicator
+   ============================================ */
+.onlineStatus {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.8);
+  animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(76, 175, 80, 1);
+  }
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+/* Mobile */
+@media (max-width: 575px) {
+  .profileCard {
+    border-radius: 12px;
   }
 
-  .profileCard:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
-  }
-  
   .matchBadge {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #ec9ab6;
-    color: #fff;
-    padding: 2px 6px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    font-size: 12px;
-    font-weight: bold;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 0 0 10px 10px;
   }
-  
-  .imageContainer {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-  }
-  
-  .profileImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
+
   .profileOverlay {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
-    color: #fff;
-    border-radius: 10px;
-    padding: 5px;
-    text-align: center;
+    padding: 10px;
   }
-  
+
   .profileDistance {
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 2px 6px;
-    border-radius: 12px;
-    display: inline-block;
-    margin-bottom: 5px;
+    font-size: 9px;
+    padding: 3px 8px;
   }
-  
+
   .profileName {
-    font-size: 1rem;
-    font-weight: bold;
+    font-size: 12px;
   }
-  
+
   .profileLocation {
-    font-size: 0.8rem;
+    font-size: 10px;
   }
-  
+
   .onlineStatus {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    background-color: #0f0;
-    border-radius: 50%;
-    margin-left: 5px;
+    width: 6px;
+    height: 6px;
   }
-  
+}
+
+/* Tablet */
+@media (min-width: 576px) and (max-width: 991px) {
+  .matchBadge {
+    font-size: 10px;
+  }
+
+  .profileName {
+    font-size: 13px;
+  }
+
+  .profileLocation {
+    font-size: 10px;
+  }
+}
+
+/* Desktop - enhance hover effect */
+@media (min-width: 992px) {
+  .profileCard:hover .profileOverlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 60%, transparent 100%);
+  }
+
+  .profileCard:hover .matchBadge {
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 64, 129, 0.5);
+  }
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+.profileCard:focus-visible {
+  outline: 3px solid var(--secondary-pink, #FF4081);
+  outline-offset: 3px;
+}
+
+.profileCard:focus {
+  outline: none;
+}
+
+.profileCard:focus-visible {
+  outline: 3px solid var(--secondary-pink, #FF4081);
+  outline-offset: 3px;
+}

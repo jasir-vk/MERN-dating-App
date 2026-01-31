@@ -1,0 +1,140 @@
+/* ============================================
+   Toast - Notification Component
+   Phase 9: Shared Component
+   ============================================ */
+
+.toast {
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 300px;
+  max-width: 500px;
+  padding: var(--spacing-4, 16px) var(--spacing-5, 20px);
+  border-radius: var(--radius-xl, 16px);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3, 12px);
+  font-family: var(--font-primary, 'Inter', sans-serif);
+  font-size: var(--text-base, 16px);
+  font-weight: 600;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  animation: toastSlideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+}
+
+@keyframes toastSlideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-xl, 20px);
+}
+
+.message {
+  flex: 1;
+  line-height: 1.4;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: var(--spacing-1, 4px);
+  opacity: 0.7;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: var(--text-base, 16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeBtn:hover {
+  opacity: 1;
+}
+
+/* Type Variants */
+.success {
+  background: rgba(76, 175, 80, 0.95);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.error {
+  background: rgba(244, 67, 54, 0.95);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.info {
+  background: rgba(33, 150, 243, 0.95);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.warning {
+  background: rgba(255, 152, 0, 0.95);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Mobile Responsive */
+@media (max-width: 575px) {
+  .toast {
+    top: 80px;
+    min-width: calc(100% - 32px);
+    max-width: calc(100% - 32px);
+    left: 16px;
+    transform: none;
+    font-size: var(--text-sm, 14px);
+  }
+
+  @keyframes toastSlideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .iconContainer {
+    font-size: var(--text-lg, 18px);
+  }
+}
+
+/* Tablet */
+@media (min-width: 576px) and (max-width: 991px) {
+  .toast {
+    min-width: 350px;
+    max-width: 450px;
+  }
+}
+
+/* Accessibility */
+.closeBtn:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Print */
+@media print {
+  .toast {
+    display: none;
+  }
+}

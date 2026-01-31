@@ -4,23 +4,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faCompass, faUserGroup, faComment } from '@fortawesome/free-solid-svg-icons';
 import styles from './footer.module.css';
 
+const navigationItems = [
+  { icon: faHome, id: 0, path: '/userhome', label: 'Home' },
+  { icon: faCompass, id: 1, path: '/explore', label: 'Explore' },
+  { icon: 'nearby', id: 2, path: '/near-by-user', label: 'Nearby' },
+  { icon: faUserGroup, id: 3, path: '/qualification', label: 'People' },
+  { icon: faComment, id: 4, path: '/messages', label: 'Messages' },
+];
+
 const Footer = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  
-  const icons = [
-    { icon: faHome, id: 0, path: '/userhome' },
-    { icon: faCompass, id: 1, path: '/explore' },
-    { icon: 'near-by-user', id: 2, path: '/near-by-user' },
-    { icon: faUserGroup, id: 3, path: '/qualification' },
-    { icon: faComment, id: 4, path: '/messages' }
-  ];
 
   const determineActiveIndex = (pathname) => {
     if (pathname === '/location' || pathname === '/designation') {
-      return 3; 
+      return 3;
     }
-    return icons.findIndex(icon => icon.path === pathname);
+    return navigationItems.findIndex(item => item.path === pathname);
   };
 
   const [activeIndex, setActiveIndex] = useState(determineActiveIndex(location.pathname));
@@ -29,33 +29,34 @@ const Footer = () => {
     setActiveIndex(determineActiveIndex(location.pathname));
   }, [location.pathname]);
 
-  const handleIconClick = (index, path) => {
+  const handleNavClick = (index, path) => {
     setActiveIndex(index);
     navigate(path);
   };
 
   return (
-    <footer className={`d-flex justify-content-around  ${styles.footer}`}>
-      {icons.map((item, index) => (
-        <button
-          key={index}
-          className={`${styles.iconButton} ${activeIndex === index ? styles.active : ''}`}
-          onClick={() => handleIconClick(index, item.path)}
-        >
-          {item.icon === 'near-by-user' ? (
-            <div
-              style={{
-                width: '35px',
-                height: '35px',
-                borderRadius: '50%',
-                background: 'conic-gradient(red, yellow, green, cyan, blue, magenta, red)',
-              }}
-            />
-          ) : (
-            <FontAwesomeIcon icon={item.icon} />
-          )}
-        </button>
-      ))}
+    <footer className={styles.footerContainer}>
+      <nav className={styles.footerNav} role="navigation" aria-label="Main navigation">
+        {navigationItems.map((item, index) => (
+          <button
+            key={item.id}
+            className={`${styles.navButton} ${activeIndex === index ? styles.active : ''}`}
+            onClick={() => handleNavClick(index, item.path)}
+            aria-label={item.label}
+            aria-current={activeIndex === index ? 'page' : undefined}
+            title={item.label}
+          >
+            {item.icon === 'nearby' ? (
+              <div className={styles.nearbyIcon}>
+                <div className={styles.nearbyGradient} />
+              </div>
+            ) : (
+              <FontAwesomeIcon icon={item.icon} className={styles.navIcon} />
+            )}
+            {activeIndex === index && <div className={styles.activeIndicator} />}
+          </button>
+        ))}
+      </nav>
     </footer>
   );
 };

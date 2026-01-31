@@ -1,89 +1,112 @@
 import React, { useContext } from "react";
-import { FaSignOutAlt, FaTimes } from "react-icons/fa";
+import { FaSignOutAlt, FaTimes, FaUser, FaPaperPlane, FaEye, FaCheck, FaTimes as FaReject, FaInbox, FaStar, FaHeart, FaEnvelope, FaCog } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import styles from "./RightSideModal.module.css"; // Correctly import the CSS module
+import styles from "./RightSideModal.module.css";
 import { ModalContext } from "../../StateManagement/ModalContext";
 import { UserContext } from "../Context/UserContext";
-import default_profile from '../../assets/default_profile.jpg'
+import default_profile from '../../assets/default_profile.jpg';
+
+const menuItems = [
+    { path: '/ownProfileview', label: 'My Profile', icon: FaUser, name: 'My Profile' },
+    { path: '/sent', label: 'Sent Request', icon: FaPaperPlane, name: 'Sent' },
+    { path: '/viewed-my-profile', label: 'Viewed My Profile', icon: FaEye, name: 'Viewed My Profile' },
+    { path: '/accepted', label: 'Accept Request', icon: FaCheck, name: 'Accept' },
+    { path: '/rejected', label: 'Reject', icon: FaReject, name: 'Reject' },
+    { path: '/received', label: 'Received', icon: FaInbox, name: 'Received' },
+    { path: '/shortlistedBy', label: 'Shortlisted By', icon: FaStar, name: 'Shortlisted By' },
+    { path: '/shortlisted', label: 'Shortlisted', icon: FaHeart, name: 'Shortlisted' },
+    { path: '/messages', label: 'Message', icon: FaEnvelope, name: 'Message' },
+    { path: '/settings', label: 'Settings', icon: FaCog, name: 'Settings' },
+];
 
 const RightSideModal = () => {
-    const { user, logout } = useContext(UserContext)
-    const { isModalOpen, toggleModal, handlePageNameChange } = useContext(ModalContext)
+    const { user, logout } = useContext(UserContext);
+    const { isModalOpen, toggleModal, handlePageNameChange } = useContext(ModalContext);
+
     const handleLinkClick = (name) => {
         handlePageNameChange(name);
-        toggleModal()
+        toggleModal();
     };
-    const handleLogout = () => {
-        logout();      // Perform logout
-        toggleModal(); // Close the modal after logging out
-    };
-    console.log("This is me :", user);
 
-    const profileImageUrl = user && user.profile && user.profile.profile_image_urls ?
-        user.profile.profile_image_urls[0] : default_profile
+    const handleLogout = () => {
+        logout();
+        toggleModal();
+    };
+
+    const profileImageUrl = user?.profile?.profile_image_urls?.[0] || default_profile;
 
     return (
         <>
-            {isModalOpen && <div className={styles.overlay} onClick={toggleModal}></div>}
-            <div className={`${styles["right-side-modal"]} ${isModalOpen ? styles.open : ""}`}>
-                <div className={styles["modal-content"]}>
-                    <div className={styles["modal-header"]}>
-                        <div className={styles["profile-section"]}>
-                            <div className={styles["profile-image-container"]}>
+            {isModalOpen && (
+                <div
+                    className={styles.overlay}
+                    onClick={toggleModal}
+                    role="presentation"
+                    aria-hidden="true"
+                />
+            )}
+            <div
+                className={`${styles.rightSideModal} ${isModalOpen ? styles.open : ""}`}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="modal-title"
+            >
+                <div className={styles.modalContent}>
+                    {/* Header */}
+                    <div className={styles.modalHeader}>
+                        <div className={styles.profileSection}>
+                            <div className={styles.profileImageContainer}>
                                 <img
                                     src={profileImageUrl}
-                                    alt="Profile"
-                                    className={styles["profile-pic"]}
+                                    alt={`${user?.name || 'Guest'}'s profile`}
+                                    className={styles.profilePic}
                                 />
-                                <span className={styles["online-status"]}></span>
+                                <span className={styles.onlineStatus} aria-label="Online"></span>
                             </div>
-                            <div className={styles["profile-info"]}>
-                                <h3>{user ? user.name : 'Guest'}</h3>
-                                <h4>Prime Member</h4>
-                                <p>Online</p>
+                            <div className={styles.profileInfo}>
+                                <h3 id="modal-title" className={styles.userName}>{user?.name || 'Guest'}</h3>
+                                <span className={styles.primeBadge}>Prime Member</span>
+                                <p className={styles.onlineText}>Online</p>
                             </div>
                         </div>
-                        <FaTimes className={styles["close-icon"]} onClick={toggleModal} />
+                        <button
+                            className={styles.closeIcon}
+                            onClick={toggleModal}
+                            aria-label="Close modal"
+                            title="Close"
+                        >
+                            <FaTimes />
+                        </button>
                     </div>
-                    <div className={styles["modal-body"]}>
-                        <ul>
-                            <Link to={'/ownProfileview'}>
-                                <li onClick={() => handleLinkClick('My Profile')}>My Profile</li>
-                            </Link>
-                            <Link to={"/sent"}>
-                                <li onClick={() => handleLinkClick("Sent ")}>Sent Request</li>
-                            </Link>
-                            <Link to={"/viewed-my-profile"}>
-                                <li onClick={() => handleLinkClick("Viewed My Profile")}>Viewed My Profile</li>
-                            </Link>
-                            <Link to={"/accepted"}>
-                                <li onClick={() => handleLinkClick("Accept")}>Accept Request</li>
-                            </Link>
-                            <Link to={"/rejected"}>
-                                <li onClick={() => handleLinkClick("Reject")}>Reject</li>
-                            </Link>
-                            <Link to={"/received"}>
-                                <li onClick={() => handleLinkClick("Received")}>Received</li>
-                            </Link>
-                            <Link to={"/shortlistedBy"}>
-                                <li onClick={() => handleLinkClick("Shortlisted By")}>Shortlisted By</li>
-                            </Link>
-                            <Link to={"/shortlisted"}>
-                                <li onClick={() => handleLinkClick("Shortlisted")}>Shortlisted</li>
-                            </Link>
-                            {/* <Link to={"/contacted"}>
-                                <li onClick={() => handleLinkClick("Contacted")}>Contacted</li>
-                            </Link> */}
-                            <Link to={"/messages"}>
-                                <li onClick={() => handleLinkClick("Message")}>Message</li>
-                            </Link>
-                            <Link to={"/settings"}>
-                                <li onClick={() => handleLinkClick("Settings")}>Settings</li>
-                            </Link>
+
+                    {/* Navigation Menu */}
+                    <nav className={styles.modalBody}>
+                        <ul className={styles.menuList}>
+                            {menuItems.map((item, index) => (
+                                <li key={index} className={styles.menuItem}>
+                                    <Link
+                                        to={item.path}
+                                        className={styles.menuLink}
+                                        onClick={() => handleLinkClick(item.name)}
+                                    >
+                                        <item.icon className={styles.menuIcon} />
+                                        <span className={styles.menuLabel}>{item.label}</span>
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
-                    </div>
-                    <div className={styles["modal-footer"]}>
-                        <button className={styles["logout-button"]} onClick={handleLogout}><FaSignOutAlt />&nbsp; Logout</button>
+                    </nav>
+
+                    {/* Footer */}
+                    <div className={styles.modalFooter}>
+                        <button
+                            className={styles.logoutButton}
+                            onClick={handleLogout}
+                            aria-label="Logout"
+                        >
+                            <FaSignOutAlt className={styles.logoutIcon} />
+                            <span>Logout</span>
+                        </button>
                     </div>
                 </div>
             </div>

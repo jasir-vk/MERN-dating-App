@@ -1,54 +1,194 @@
-.modalDialog {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
+/* ============================================
+   InterestModal - Modern Card-Based Design
+   Matching PersonalDetails & RelationshipGoals
+   ============================================ */
+
+/* ========== Modal Overlay ========== */
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
 }
 
-.modalContent {
-  background: transparent; 
-  border: none; 
-  padding: 0; 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
+/* ========== Modern Modal Container ========== */
 
-
-
-.modalTitle {
-  margin-bottom: 20px;
-  font-weight: bold;
-  color: black;
+.modal {
+  background: #FFFFFF;
+  padding: 40px 32px;
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+  width: 90%;
+  max-width: 480px;
+  animation: modalSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.btnPrimary {
-  background: #4b06ba;
-  border: none;
-  border-radius: 25px;
-  font-weight: bold;
-  color: #fff;
+@keyframes modalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.btnDanger {
-  background: linear-gradient(to right, #fd2a46, #fd2a46);
-  border: none;
-  border-radius: 25px;
-  font-weight: bold;
-  color: #fff;
+/* ========== Header Section ========== */
+
+.title {
+  margin: 0 0 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  text-align: center;
+  color: #212121;
 }
 
-.btnInfo {
-  background: linear-gradient(to right, #2f80ed, white);
-  border: none;
-  border-radius: 25px;
-  font-weight: bold;
-  color: #fff;
+.subtitle {
+  text-align: center;
+  color: #9E9E9E;
+  font-size: 14px;
+  margin-bottom: 32px;
+  font-family: 'Inter', sans-serif;
 }
 
-.my-2 {
-  margin-top: 10px;
-  margin-bottom: 10px;
+/* ========== Options Container ========== */
+
+.optionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.modal-backdrop.show {
-  background-color: rgba(0, 0, 0, 0.9); 
-  backdrop-filter: blur(2000px); 
+/* ========== Option Cards ========== */
+
+.optionCard {
+  width: 100%;
+  padding: 24px;
+  border: 3px solid #E0E0E0;
+  border-radius: 16px;
+  background: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
+
+.optionCard:hover {
+  border-color: #4B134F;
+  background: linear-gradient(135deg, #F8E8F2 0%, #E1BEE7 100%);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(75, 19, 79, 0.3);
+}
+
+.optionCard:active {
+  transform: translateY(-2px);
+}
+
+/* ========== Option Card Components ========== */
+
+.optionIcon {
+  font-size: 48px;
+  flex-shrink: 0;
+  width: 60px;
+  text-align: center;
+}
+
+.optionContent {
+  flex: 1;
+  text-align: left;
+}
+
+.optionTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #212121;
+  margin-bottom: 4px;
+  font-family: 'Inter', sans-serif;
+}
+
+.optionDescription {
+  font-size: 14px;
+  color: #616161;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ========== Responsive Design ========== */
+
+/* Mobile: 320px - 480px */
+@media (max-width: 480px) {
+  .modal {
+    width: 95%;
+    padding: 32px 20px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .optionCard {
+    padding: 20px;
+  }
+
+  .optionIcon {
+    font-size: 40px;
+    width: 50px;
+  }
+
+  .optionTitle {
+    font-size: 18px;
+  }
+
+  .optionDescription {
+    font-size: 13px;
+  }
+}
+
+/* Tablet: 481px - 768px */
+@media (min-width: 481px) and (max-width: 768px) {
+  .modal {
+    width: 85%;
+    max-width: 500px;
+    padding: 36px 28px;
+  }
+}
+
+/* Desktop: 769px+ */
+@media (min-width: 769px) {
+  .modal {
+    width: 80%;
+    max-width: 480px;
+  }
+
+  .optionCard:hover {
+    box-shadow: 0 12px 35px rgba(75, 19, 79, 0.35);
+  }
+}
+
+/* ========== Accessibility ========== */
+
+.optionCard:focus-visible {
+  outline: 3px solid #FF4081;
+  outline-offset: 2px;
 }

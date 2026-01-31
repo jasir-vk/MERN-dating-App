@@ -1,143 +1,464 @@
-.profiles {
-  padding: 1rem;
-  background-color: #fdf2f8;
-  
+/* ============================================
+   Profiles Component - Enhanced Card Design
+   Phase 5: Profiles Grid Modernization
+   ============================================ */
+
+/* ========== Profiles Section Container ========== */
+
+.profilesSection {
+  padding: 16px 0;
 }
+
+/* ========== Profiles Header ========== */
+
+.profilesHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px 16px 16px;
+  margin-bottom: 8px;
+}
+
+.profilesTitle {
+  font-size: var(--text-xl, 20px);
+  font-weight: 700;
+  font-family: var(--font-heading, 'Poppins', sans-serif);
+  background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+}
+
+.sortButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(75, 19, 79, 0.2);
+  border-radius: 20px;
+  font-size: var(--text-sm, 14px);
+  font-weight: 600;
+  color: #4B134F;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.sortButton:hover {
+  background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(75, 19, 79, 0.2);
+}
+
+.sortButtonActive {
+  background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+  color: white;
+  border-color: transparent;
+}
+
+/* ========== Profiles Grid ========== */
+
+.profilesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+  padding: 0 16px;
+}
+
+/* ========== Profile Card Wrapper ========== */
+
+.profileCardWrapper {
+  width: 100%;
+}
+
+/* ========== Profile Card ========== */
 
 .profileCard {
   position: relative;
-  border-radius: 15px;
+  border-radius: 20px;
   overflow: hidden;
-  width: 100%;
-  height: 180px;
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-.profileCard:hover {
-  transform: scale(1.05);
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+  background: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 280px;
+  display: flex;
+  flex-direction: column;
 }
 
-.profileCard img {
+.profileCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(75, 19, 79, 0.2);
+}
+
+/* ========== Profile Image Container ========== */
+
+.profileImageLink {
+  text-decoration: none;
+  display: block;
+  height: 180px;
+  position: relative;
+}
+
+.profileImageContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.profileImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
 }
+
+.profileCard:hover .profileImage {
+  transform: scale(1.08);
+}
+
+/* ========== Image Overlay ========== */
+
+.imageOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* ========== Status Badge ========== */
+
+.statusBadge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  color: #4B134F;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  background: #4CAF50;
+  border-radius: 50%;
+  animation: statusPulse 2s infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ========== Compatibility Badge ========== */
+
+.compatibilityBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font-heading, 'Poppins', sans-serif);
+  box-shadow: 0 2px 8px rgba(75, 19, 79, 0.3);
+  z-index: 2;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ========== Profile Info ========== */
 
 .profileInfo {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
-  color: #fff;
-  padding: 10px;
-  border-radius: 10px;
-  width: calc(100% - 20px);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px;
+  color: white;
+  z-index: 2;
 }
 
-.profileInfo p {
-  margin: 0;
+.profileName {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 4px;
 }
 
 .name {
   font-size: 15px;
-  font-weight: bold;
-  display: inline;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  color: white;
+  display: block;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.ageRole {
+.ageGender {
   font-size: 12px;
-  font-weight: normal;
-  color:rgb(227, 224, 224); 
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .role {
-  font-size: 12px;
-  color:rgb(227, 224, 224); 
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-.status {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: rgba(228, 224, 224, 0.959);
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-size: 0.8rem;
-  display: flex;
-  align-items: center;
-}
+/* ========== Action Buttons ========== */
 
 .actionButtons {
   position: absolute;
   top: 50%;
-  right: 0;
+  right: 8px;
+  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 15px;
-  padding: 5px;
-  width: 50px;
-  height: 120px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
-  align-items: center;
-  justify-content: space-around;
+  gap: 8px;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.actionButtons::before {
-  content: "";
-  position: absolute;
-  top: 48px;
-  bottom: 48px;
-  left: 10%;
-  width: 3px;
-  
-  background-color: rgba(255, 255, 255, 0.3);
+.profileCard:hover .actionButtons {
+  opacity: 1;
 }
 
 .iconButton {
-  background: rgba(255, 255, 255, 0.3);
-  border: none;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  margin: 5px 0;
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  color: #4B134F;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.iconButton:hover {
+  background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
   color: white;
-  font-size: 1rem;
-  margin-left: 6px;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(75, 19, 79, 0.3);
 }
 
-.col {
-  flex: 0 0 auto;
-  flex-direction: row;
-  width: 100%;
+.iconButton:active {
+  transform: scale(0.95);
 }
 
+/* ========== Responsive Design ========== */
 
+/* Mobile: < 576px */
+@media (max-width: 575px) {
+  .profilesGrid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    padding: 0 12px;
+  }
 
-@media (min-width: 480px) {
-  .col-xs-6 {
-    width: 50%;
+  .profileCard {
+    height: 260px;
+    border-radius: 16px;
+  }
+
+  .profileImageLink {
+    height: 160px;
+  }
+
+  .statusBadge {
+    font-size: 10px;
+    padding: 5px 10px;
+  }
+
+  .statusDot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .name {
+    font-size: 14px;
+  }
+
+  .ageGender {
+    font-size: 11px;
+  }
+
+  .role {
+    font-size: 10px;
+  }
+
+  .iconButton {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .actionButtons {
+    gap: 6px;
   }
 }
 
-@media (min-width: 768px) {
-  .col-md-4 {
-    width: 33.333333%;
+/* Tablet: 576px - 767px */
+@media (min-width: 576px) and (max-width: 767px) {
+  .profilesGrid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 14px;
+  }
+
+  .profileCard {
+    height: 270px;
   }
 }
 
-@media (min-width: 992px) {
-  .col-lg-2 {
-    width: 16.666667%;
+/* Tablet: 768px - 991px */
+@media (min-width: 768px) and (max-width: 991px) {
+  .profilesGrid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
   }
 }
 
-.marginBottom4 {
-  margin-bottom: 1.5rem; 
+/* Desktop: 992px - 1199px */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .profilesGrid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 18px;
+  }
+
+  .profileCard {
+    height: 300px;
+  }
+
+  .profileImageLink {
+    height: 200px;
+  }
+}
+
+/* Large Desktop: 1200px+ */
+@media (min-width: 1200px) {
+  .profilesGrid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .profileCard {
+    height: 320px;
+  }
+
+  .profileImageLink {
+    height: 220px;
+  }
+
+  .name {
+    font-size: 16px;
+  }
+
+  .ageGender {
+    font-size: 13px;
+  }
+
+  .role {
+    font-size: 12px;
+  }
+
+  .iconButton {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+}
+
+/* ========== Accessibility ========== */
+
+.iconButton:focus-visible {
+  outline: 3px solid #FF4081;
+  outline-offset: 2px;
+}
+
+/* ========== Touch Devices ========== */
+
+@media (hover: none) and (pointer: coarse) {
+  .actionButtons {
+    opacity: 1;
+  }
+
+  .profileCard:hover {
+    transform: none;
+  }
+
+  .profileCard:active {
+    transform: scale(0.98);
+  }
+
+  .iconButton:hover {
+    transform: none;
+  }
+
+  .iconButton:active {
+    transform: scale(0.9);
+  }
+}
+
+/* ========== Print Styles ========== */
+
+@media print {
+  .profileCard {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    page-break-inside: avoid;
+  }
+
+  .actionButtons {
+    display: none;
+  }
+
+  .statusBadge {
+    background: white;
+    border: 1px solid #ddd;
+  }
 }

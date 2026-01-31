@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { FaHeart, FaTimes } from "react-icons/fa";
 import styles from "./Contacted.module.css";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
+import { ModalContext } from "../../StateManagement/ModalContext";
 
 const contacts = [
     {
@@ -55,7 +56,12 @@ const groupContacts = (contacts) => {
 };
 
 const Contacted = () => {
+    const { setPageName } = useContext(ModalContext);
     const groupedContacts = groupContacts(contacts);
+
+    useEffect(() => {
+        setPageName("Contacted");
+    }, [setPageName]);
 
     return (
         <>

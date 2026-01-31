@@ -1,53 +1,311 @@
+/* ============================================
+   ChooseApp - Final Onboarding Step
+   Large visual cards with celebration styling
+   ============================================ */
+
+/* ========== Modal Overlay with Gradient Background ========== */
+
 .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    backdrop-filter: blur(2px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ========== Modern Modal Container ========== */
+
+.modal {
+  background: #FFFFFF;
+  padding: 40px 32px;
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+}
+
+@keyframes modalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
   }
-  
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom Scrollbar */
+.modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal::-webkit-scrollbar-track {
+  background: #F5F5F5;
+  border-radius: 10px;
+}
+
+.modal::-webkit-scrollbar-thumb {
+  background: #4B134F;
+  border-radius: 10px;
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+  background: #6B1F6F;
+}
+
+/* ========== Progress Indicator (All Complete!) ========== */
+
+.progressIndicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.progressDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #E0E0E0;
+  transition: all 0.3s ease;
+}
+
+.progressDot.active {
+  background: linear-gradient(135deg, #4B134F 0%, #C94B4B 100%);
+  width: 32px;
+  border-radius: 6px;
+}
+
+/* ========== Header Section ========== */
+
+.modal h2 {
+  margin: 0 0 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  text-align: center;
+  color: #212121;
+}
+
+.stepIndicator {
+  text-align: center;
+  color: #9E9E9E;
+  font-size: 14px;
+  margin-bottom: 32px;
+  font-family: 'Inter', sans-serif;
+}
+
+.celebrationText {
+  text-align: center;
+  color: #616161;
+  font-size: 15px;
+  margin-bottom: 32px;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.5;
+}
+
+/* ========== Button Container ========== */
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ========== Large Visual Option Cards ========== */
+
+.optionButton {
+  width: 100%;
+  padding: 32px 24px;
+  border: 3px solid #E0E0E0;
+  border-radius: 20px;
+  background: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  font-family: 'Inter', sans-serif;
+}
+
+.optionButton:hover {
+  border-color: #4B134F;
+  background: linear-gradient(135deg, #F8E8F2 0%, #E1BEE7 100%);
+  transform: translateY(-6px);
+  box-shadow: 0 15px 40px rgba(75, 19, 79, 0.25);
+}
+
+.optionButton.selected {
+  border-color: #4B134F;
+  background: linear-gradient(135deg, #F8E8F2 0%, #E1BEE7 100%);
+  box-shadow: 0 15px 40px rgba(75, 19, 79, 0.35);
+  animation: pulse 0.6s ease;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* Checkmark for selected card */
+.optionButton.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  background: #4B134F;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  animation: checkmarkPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes checkmarkPop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Option Icon */
+.optionIcon {
+  font-size: 64px;
+  margin-bottom: 8px;
+}
+
+/* Option Title */
+.optionTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #212121;
+  margin-bottom: 4px;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Option Description */
+.optionDescription {
+  font-size: 15px;
+  color: #616161;
+  text-align: center;
+  line-height: 1.4;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ========== Responsive Design ========== */
+
+/* Mobile: 320px - 480px */
+@media (max-width: 480px) {
   .modal {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 95%;
+    padding: 24px 16px;
+    max-height: 95vh;
   }
-  
-  h2 {
-    margin-bottom: 20px;
-    font-size: 18px;
-    font-weight: bold;
+
+  .modal h2 {
+    font-size: 22px;
   }
-  
-  .buttonContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
+
   .optionButton {
-    background-color: #333;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
+    padding: 28px 20px;
   }
-  
+
+  .optionIcon {
+    font-size: 52px;
+  }
+
+  .optionTitle {
+    font-size: 20px;
+  }
+
+  .optionDescription {
+    font-size: 14px;
+  }
+
+  .celebrationText {
+    font-size: 14px;
+  }
+}
+
+/* Tablet: 481px - 768px */
+@media (min-width: 481px) and (max-width: 768px) {
+  .modal {
+    width: 85%;
+    max-width: 600px;
+    padding: 32px 24px;
+  }
+
+  .optionButton {
+    padding: 36px 28px;
+  }
+}
+
+/* Desktop: 769px+ */
+@media (min-width: 769px) {
+  .modal {
+    width: 80%;
+    max-width: 500px;
+  }
+
   .optionButton:hover {
-    background-color: darkgray;
+    box-shadow: 0 20px 50px rgba(75, 19, 79, 0.3);
   }
-  
-  .selected {
-    background-color: darkgray;
+}
+
+/* ========== Accessibility ========== */
+
+.optionButton:focus-visible {
+  outline: 3px solid #FF4081;
+  outline-offset: 2px;
+}
+
+/* ========== Confetti Animation (Optional Enhancement) ========== */
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #FF4081;
+  opacity: 0;
+  animation: confettiFall 3s ease-out;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
   }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}

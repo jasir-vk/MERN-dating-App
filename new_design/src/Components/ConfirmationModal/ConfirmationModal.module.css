@@ -1,0 +1,161 @@
+/* ============================================
+   ConfirmationModal - Glassmorphism Dialog
+   Phase 9: Shared Component
+   ============================================ */
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-radius: var(--radius-2xl, 24px);
+  padding: var(--spacing-8, 32px);
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  animation: modalSlideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@keyframes modalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.title {
+  font-family: var(--font-heading, 'Poppins', sans-serif);
+  font-size: var(--text-2xl, 24px);
+  font-weight: 700;
+  color: var(--gray-900, #212121);
+  margin: 0 0 var(--spacing-3, 12px) 0;
+}
+
+.message {
+  font-family: var(--font-primary, 'Inter', sans-serif);
+  font-size: var(--text-base, 16px);
+  color: var(--gray-700, #616161);
+  margin: 0 0 var(--spacing-6, 24px) 0;
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  gap: var(--spacing-3, 12px);
+  justify-content: flex-end;
+}
+
+.btn {
+  padding: var(--spacing-3, 12px) var(--spacing-6, 24px);
+  border-radius: var(--radius-lg, 12px);
+  border: none;
+  font-family: var(--font-primary, 'Inter', sans-serif);
+  font-size: var(--text-base, 16px);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btnSecondary {
+  background: var(--gray-200, #EEEEEE);
+  color: var(--gray-900, #212121);
+}
+
+.btnSecondary:hover {
+  background: var(--gray-300, #E0E0E0);
+}
+
+.btnDefault,
+.btn-default {
+  background: linear-gradient(135deg, var(--primary-purple, #4B134F) 0%, var(--secondary-pink, #FF4081) 100%);
+  color: white;
+}
+
+.btnDefault:hover,
+.btn-default:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(75, 19, 79, 0.3);
+}
+
+.btnDanger,
+.btn-danger {
+  background: linear-gradient(135deg, #F44336 0%, #E53935 100%);
+  color: white;
+}
+
+.btnDanger:hover,
+.btn-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+}
+
+.btnSuccess,
+.btn-success {
+  background: linear-gradient(135deg, #4CAF50 0%, #43A047 100%);
+  color: white;
+}
+
+.btnSuccess:hover,
+.btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+/* Mobile Responsive */
+@media (max-width: 575px) {
+  .modal {
+    width: 95%;
+    padding: var(--spacing-6, 24px);
+  }
+
+  .title {
+    font-size: var(--text-xl, 20px);
+  }
+
+  .message {
+    font-size: var(--text-sm, 14px);
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+    gap: var(--spacing-2, 8px);
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Accessibility */
+.btn:focus-visible {
+  outline: 3px solid var(--secondary-pink, #FF4081);
+  outline-offset: 2px;
+}

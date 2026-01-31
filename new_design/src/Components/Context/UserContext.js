@@ -1,18 +1,16 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import LoadingPage from '../LoadingPage/LoadingPage';
-import { useNavigate } from 'react-router-dom';
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-    const navigate = useNavigate()
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [fetched, setFetched] = useState(false); // Flag to prevent multiple fetches
 
-    const fetchUserDetails = async (token) => {
+    const fetchUserDetails = useCallback(async (token) => {
         console.log("My token:", token);
         if (!token) {
             console.error('No token provided to fetchUserDetails');
@@ -37,17 +35,17 @@ export const UserProvider = ({ children }) => {
         } catch (error) {
             console.error('Error fetching user details:', error);
             if (error.response && error.response.status === 401) {
-                localStorage.removeItem('token')
-                navigate('/')
+                localStorage.removeItem('token');
+                setUser(null);
+                setError('Session expired. Please login again.');
             } else {
                 setError('Error fetching user details');
             }
-            setError('Error fetching user details');
             return null;
         } finally {
             setLoading(false);
         }
-    };
+    }, []);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -56,12 +54,14 @@ export const UserProvider = ({ children }) => {
         } else {
             setLoading(false);
         }
-    }, [fetched]);  // Depend on fetched
+    }, [fetched, fetchUserDetails]);  // Depend on fetched and fetchUserDetails
 
     const logout = () => {
-        localStorage.removeItem('token')
-        setUser(null)
-        navigate('/')
+        localStorage.removeItem('token');
+        setUser(null);
+        setError(null);
+        setFetched(false);
+        // Components using this function should handle navigation themselves
     }
 
     return (

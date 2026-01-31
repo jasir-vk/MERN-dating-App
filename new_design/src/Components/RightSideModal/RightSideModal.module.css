@@ -1,217 +1,489 @@
+/* ============================================
+   RightSideModal - Modern Glassmorphism
+   Phase 6: RightSideModal Modernization
+   ============================================ */
+
+/* ========== Overlay ========== */
+
 .overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(2px);
-    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 999;
+    animation: fadeIn 0.3s ease;
 }
 
-.right-side-modal {
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ========== Right Side Modal Container ========== */
+
+.rightSideModal {
     position: fixed;
-    top: 2%;
-    right: -100%;
-    height: 80vh;
-    width: 300px;
-    background-color: rgba(71, 2, 71, 0.8);
-    transition: right 0.5s ease-in-out;
-    border-radius: 2%;
+    top: 0;
+    right: -400px;
+    height: 100vh;
+    width: 360px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    box-shadow: -8px 0 40px rgba(75, 19, 79, 0.15);
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
-.right-side-modal.open {
-    right: 0.2rem;
+.rightSideModal.open {
+    right: 0;
 }
 
-.modal-content {
+/* ========== Modal Content ========== */
+
+.modalContent {
     display: flex;
     flex-direction: column;
     height: 100%;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
-.modal-header {
+/* ========== Modal Header ========== */
+
+.modalHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 24px;
+    background: linear-gradient(135deg, rgba(75, 19, 79, 0.05) 0%, rgba(255, 64, 129, 0.05) 100%);
+    border-bottom: 1px solid rgba(75, 19, 79, 0.1);
 }
 
-.profile-section {
+.profileSection {
     display: flex;
     align-items: center;
+    gap: 12px;
 }
 
-.profile-image-container {
+.profileImageContainer {
     position: relative;
     width: 60px;
     height: 60px;
 }
 
-.profile-pic {
-    width: 50px;
-    height: 50px;
+.profilePic {
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    margin-right: 10px;
     object-fit: cover;
-    border: 3px solid red;
+    border: 3px solid transparent;
+    background-image: linear-gradient(white, white),
+                      linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    box-shadow: 0 4px 12px rgba(75, 19, 79, 0.2);
 }
 
-.online-status {
+.onlineStatus {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 15px;
-    height: 15px;
-    background-color: #4caf50;
+    top: 2px;
+    right: 2px;
+    width: 14px;
+    height: 14px;
+    background-color: #4CAF50;
+    border: 3px solid white;
     border-radius: 50%;
+    animation: statusPulse 2s infinite;
 }
 
-.profile-info h3 {
+@keyframes statusPulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.1);
+    }
+}
+
+.profileInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.userName {
     margin: 0;
-    color: rgb(207, 42, 42);
-    font-size: 1.4rem;
+    color: #212121;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
 }
 
-.profile-info h4 {
-    margin: 0;
-    color: rgb(241, 206, 33);
-    font-size: 1rem;
-}
-
-.profile-info p {
-    margin: 2px 0;
-    color: rgb(125, 231, 80);
-    font-size: 0.8rem;
-}
-
-.close-icon {
-    cursor: pointer;
-    font-size: 1rem;
+.primeBadge {
+    display: inline-block;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
     color: white;
-    background: transparent;
-    padding: 8px;
-    border: 2px solid white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 8px;
+    width: fit-content;
+    box-shadow: 0 2px 4px rgba(255, 165, 0, 0.3);
+}
+
+.onlineText {
+    margin: 0;
+    color: #4CAF50;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.closeIcon {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
+    border: none;
+    background: rgba(75, 19, 79, 0.1);
+    color: #4B134F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s ease;
 }
 
-.modal-body {
+.closeIcon:hover {
+    background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+    color: white;
+    transform: rotate(90deg);
+}
+
+.closeIcon:active {
+    transform: rotate(90deg) scale(0.95);
+}
+
+/* ========== Modal Body (Menu) ========== */
+
+.modalBody {
     flex-grow: 1;
-    padding: 0 20px;
+    padding: 12px 0;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
-.modal-body ul {
+.modalBody::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modalBody::-webkit-scrollbar-track {
+    background: rgba(75, 19, 79, 0.05);
+}
+
+.modalBody::-webkit-scrollbar-thumb {
+    background: rgba(75, 19, 79, 0.2);
+    border-radius: 3px;
+}
+
+.modalBody::-webkit-scrollbar-thumb:hover {
+    background: rgba(75, 19, 79, 0.3);
+}
+
+.menuList {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.modal-body ul a {
+.menuItem {
+    margin: 0;
+}
+
+.menuLink {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 24px;
     text-decoration: none;
-    padding: 0;
-    font-size: 1rem;
+    color: #424242;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-.modal-body li {
-    padding: 8px 0;
-    color: white;
-    cursor: pointer;
-    white-space: nowrap; 
-    overflow: hidden; 
-    text-overflow: ellipsis; 
+.menuLink::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
 }
 
-.logout-button {
-    background: none;
+.menuLink:hover {
+    background: rgba(75, 19, 79, 0.05);
+    color: #4B134F;
+}
+
+.menuLink:hover::before {
+    transform: scaleY(1);
+}
+
+.menuLink:active {
+    background: rgba(75, 19, 79, 0.1);
+}
+
+.menuIcon {
+    font-size: 18px;
+    color: #4B134F;
+    transition: transform 0.3s ease;
+}
+
+.menuLink:hover .menuIcon {
+    transform: translateX(4px);
+}
+
+.menuLabel {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ========== Modal Footer ========== */
+
+.modalFooter {
+    padding: 20px 24px;
+    border-top: 1px solid rgba(75, 19, 79, 0.1);
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.logoutButton {
     width: 100%;
-    padding-bottom: 2rem;
-    color: rgb(240, 238, 240);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+    color: white;
     border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
     cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(75, 19, 79, 0.3);
 }
 
-@media (max-width: 992px) {
-    .right-side-modal {
-        width: 350px;
-        height: 80vh;
+.logoutButton:hover {
+    background: linear-gradient(135deg, #5B1D5F 0%, #FF5091 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(75, 19, 79, 0.4);
+}
+
+.logoutButton:active {
+    transform: translateY(0);
+}
+
+.logoutIcon {
+    font-size: 16px;
+}
+
+/* ========== Responsive Design ========== */
+
+/* Mobile: < 576px */
+@media (max-width: 575px) {
+    .rightSideModal {
+        width: 100%;
+        right: -100%;
     }
-    .profile-info h3 {
-        font-size: 1.2rem;
+
+    .modalHeader {
+        padding: 16px;
     }
-    .profile-info h4 {
-        font-size: 1rem;
+
+    .profileImageContainer {
+        width: 50px;
+        height: 50px;
     }
-    .profile-info p {
-        font-size: 1rem;
+
+    .profilePic {
+        width: 50px;
+        height: 50px;
     }
-    .modal-body ul a {
-        font-size: 1rem;
+
+    .onlineStatus {
+        width: 12px;
+        height: 12px;
+        border-width: 2px;
+    }
+
+    .userName {
+        font-size: 16px;
+    }
+
+    .primeBadge {
+        font-size: 10px;
+        padding: 2px 6px;
+    }
+
+    .onlineText {
+        font-size: 11px;
+    }
+
+    .closeIcon {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+
+    .menuLink {
+        padding: 12px 16px;
+        font-size: 14px;
+        gap: 12px;
+    }
+
+    .menuIcon {
+        font-size: 16px;
+    }
+
+    .modalFooter {
+        padding: 16px;
+    }
+
+    .logoutButton {
+        padding: 12px 16px;
+        font-size: 14px;
     }
 }
 
-@media (min-width: 768px) and (max-width: 991.98px) {
-    .right-side-modal {
-        width: 300px;
-        height: 85vh;
+/* Tablet: 576px - 767px */
+@media (min-width: 576px) and (max-width: 767px) {
+    .rightSideModal {
+        width: 320px;
     }
-    .profile-info h3 {
-        font-size: 1.4rem;
-        padding: 2px;
+
+    .modalHeader {
+        padding: 20px;
     }
-    .profile-info h4 {
-        font-size: 1rem;
-        padding: 2px;
+
+    .profileImageContainer {
+        width: 56px;
+        height: 56px;
     }
-    .profile-info p {
-        font-size: 0.9rem;
-        padding: 2px;
+
+    .profilePic {
+        width: 56px;
+        height: 56px;
     }
-    .modal-body ul a {
-        font-size: 1rem;
+
+    .userName {
+        font-size: 17px;
+    }
+
+    .menuLink {
+        padding: 13px 20px;
+        font-size: 14px;
     }
 }
 
-@media (min-width: 576px) and (max-width: 767.98px) {
-    .right-side-modal {
-        width: 260px;
-        height: 85vh;
+/* Tablet: 768px - 991px */
+@media (min-width: 768px) and (max-width: 991px) {
+    .rightSideModal {
+        width: 340px;
     }
-    .profile-info h3 {
-        font-size: 1.2rem;
-    }
-    .profile-info h4 {
-        font-size: 0.9rem;
-    }
-    .profile-info p {
-        font-size: 0.8rem;
-    }
-    .modal-body ul a {
-        font-size: 1rem;
+
+    .modalHeader {
+        padding: 22px;
     }
 }
 
-@media (max-width: 575.98px) {
-    .right-side-modal {
-        width: 240px;
-        height: 85vh;
+/* Desktop: 992px+ */
+@media (min-width: 992px) {
+    .rightSideModal {
+        width: 380px;
     }
-    .modal-header {
-        padding: 10px;
+}
+
+/* Large Desktop: 1200px+ */
+@media (min-width: 1200px) {
+    .rightSideModal {
+        width: 400px;
     }
-    .profile-info h3 {
-        font-size: 1rem;
+
+    .menuLink {
+        padding: 16px 26px;
+        font-size: 16px;
     }
-    .profile-info h4 {
-        font-size: 0.8rem;
+
+    .menuIcon {
+        font-size: 20px;
     }
-    .profile-info p {
-        font-size: 0.7rem;
+}
+
+/* ========== Accessibility ========== */
+
+.closeIcon:focus-visible,
+.menuLink:focus-visible,
+.logoutButton:focus-visible {
+    outline: 3px solid #FF4081;
+    outline-offset: 2px;
+}
+
+/* ========== Touch Devices ========== */
+
+@media (hover: none) and (pointer: coarse) {
+    .closeIcon:hover {
+        background: rgba(75, 19, 79, 0.1);
+        transform: none;
     }
-    .modal-body {
-        padding: 15px;
+
+    .closeIcon:active {
+        background: linear-gradient(135deg, #4B134F 0%, #FF4081 100%);
+        color: white;
+        transform: scale(0.95);
+    }
+
+    .menuLink:hover {
+        background: transparent;
+    }
+
+    .menuLink:active {
+        background: rgba(75, 19, 79, 0.1);
+    }
+
+    .logoutButton:hover {
+        transform: none;
+    }
+
+    .logoutButton:active {
+        transform: scale(0.98);
+    }
+}
+
+/* ========== Print Styles ========== */
+
+@media print {
+    .rightSideModal,
+    .overlay {
+        display: none;
     }
 }

@@ -14,13 +14,41 @@ const ChangePassword = () => {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState('');
+
+  // Calculate password strength
+  const calculatePasswordStrength = (pwd) => {
+    if (!pwd) return '';
+
+    let strength = 0;
+
+    // Length check
+    if (pwd.length >= 8) strength++;
+    if (pwd.length >= 12) strength++;
+
+    // Character variety checks
+    if (/[a-z]/.test(pwd)) strength++; // lowercase
+    if (/[A-Z]/.test(pwd)) strength++; // uppercase
+    if (/[0-9]/.test(pwd)) strength++; // numbers
+    if (/[^a-zA-Z0-9]/.test(pwd)) strength++; // special characters
+
+    if (strength <= 2) return 'weak';
+    if (strength <= 4) return 'medium';
+    return 'strong';
+  };
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setPassword({
       ...password,
-      [e.target.name]: e.target.value
-    })
-  }
+      [name]: value
+    });
+
+    // Update password strength for new password field
+    if (name === 'newPassword') {
+      setPasswordStrength(calculatePasswordStrength(value));
+    }
+  };
   // const togglePasswordVisibility = () => {
   //   setShowPassword(!showPassword)
   // }
@@ -81,11 +109,12 @@ const ChangePassword = () => {
               onChange={handleChange}
               placeholder="Current Password"
             />
-            <p className={styles.eyeButton}
+            <span className={styles.eyeButton}
               onClick={() => setShowCurrentPassword(!showCurrentPassword)}>
-              {showCurrentPassword ? '👁️' : '🙈'}
-            </p>
+              {showCurrentPassword ? '👁' : '👁‍🗨'}
+            </span>
           </div>
+
           <div className={styles.inputGroup}>
             <input
               type={showNewPassword ? 'text' : 'password'}
@@ -94,11 +123,25 @@ const ChangePassword = () => {
               onChange={handleChange}
               placeholder="New Password"
             />
-            <p className={styles.eyeButton}
+            <span className={styles.eyeButton}
               onClick={() => setShowNewPassword(!showNewPassword)}>
-              {showNewPassword ? '👁️' : '🙈'}
-            </p>
+              {showNewPassword ? '👁' : '👁‍🗨'}
+            </span>
+            {/* Password Strength Meter */}
+            {password.newPassword && (
+              <>
+                <div className={styles.strengthMeter}>
+                  <div className={`${styles.strengthBar} ${styles[passwordStrength]}`}></div>
+                </div>
+                <div className={`${styles.strengthText} ${styles[passwordStrength]}`}>
+                  {passwordStrength === 'weak' && 'Weak password - Add more characters and variety'}
+                  {passwordStrength === 'medium' && 'Medium password - Consider adding special characters'}
+                  {passwordStrength === 'strong' && 'Strong password'}
+                </div>
+              </>
+            )}
           </div>
+
           <div className={styles.inputGroup}>
             <input
               type={showConfirmNewPassword ? 'text' : 'password'}
@@ -107,15 +150,26 @@ const ChangePassword = () => {
               onChange={handleChange}
               placeholder="Confirm Password"
             />
-            <p className={styles.eyeButton}
+            <span className={styles.eyeButton}
               onClick={() => setShowConfirmNewPassword(!showConfirmNewPassword)}>
-              {showConfirmNewPassword ? '👁️' : '🙈'}
-            </p>
+              {showConfirmNewPassword ? '👁' : '👁‍🗨'}
+            </span>
           </div>
 
-          <button type="submit" className={styles.updateButton}>Update</button>
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-          {message && <p style={{ color: 'green' }}>{message}</p>}
+          <button type="submit" className={styles.updateButton}>Update Password</button>
+
+          {error && (
+            <div className={styles.errorMessage}>
+              <span>⚠️</span>
+              <span>{error}</span>
+            </div>
+          )}
+          {message && (
+            <div className={styles.successMessage}>
+              <span>✓</span>
+              <span>{message}</span>
+            </div>
+          )}
 
         </form>
       </div>

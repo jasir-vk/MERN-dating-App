@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./Rejected.module.css";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import { getRejectRequest } from "../../Services/GetRejectedRequestAPI";
 import LoadingPage from "../../Components/LoadingPage/LoadingPage";
+import { ModalContext } from "../../StateManagement/ModalContext";
 
 const groupContacts = (contacts) => {
     return contacts.reduce((acc, contact) => {
@@ -17,8 +18,13 @@ const groupContacts = (contacts) => {
 };
 
 const Rejected = () => {
+    const { setPageName } = useContext(ModalContext);
     const [getRejected, setGetRejected] = useState({})
     const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        setPageName("Reject");
+    }, [setPageName]);
 
     useEffect(() => {
         const fetchRejectedRequest = async () => {

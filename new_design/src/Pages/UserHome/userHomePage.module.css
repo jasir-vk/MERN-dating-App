@@ -1,9 +1,165 @@
+/* ============================================
+   UserHomePage - Modern Gradient Background
+   Phase 1: Foundation with Decorative Elements
+   ============================================ */
+
+/* ========== Page Wrapper ========== */
+
+.pageWrapper {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #F8E8F2 0%, #FFFFFF 50%, #FCE4EC 100%);
+  overflow-x: hidden;
+}
+
+/* ========== Decorative Background Elements ========== */
+
+.decorativeBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Gradient Orb 1 - Top Left */
+.gradientOrb1 {
+  position: absolute;
+  top: -10%;
+  left: -5%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(75, 19, 79, 0.15) 0%, rgba(255, 64, 129, 0.08) 50%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: float 20s ease-in-out infinite;
+}
+
+/* Gradient Orb 2 - Top Right */
+.gradientOrb2 {
+  position: absolute;
+  top: 20%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255, 64, 129, 0.12) 0%, rgba(225, 190, 231, 0.1) 50%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: float 25s ease-in-out infinite reverse;
+}
+
+/* Gradient Orb 3 - Bottom Center */
+.gradientOrb3 {
+  position: absolute;
+  bottom: -15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(248, 232, 242, 0.3) 0%, rgba(252, 228, 236, 0.15) 50%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(100px);
+  animation: float 30s ease-in-out infinite;
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  25% {
+    transform: translateY(-30px) translateX(20px);
+  }
+  50% {
+    transform: translateY(-50px) translateX(-20px);
+  }
+  75% {
+    transform: translateY(-30px) translateX(10px);
+  }
+}
+
+/* ========== Main Content Container ========== */
+
 .appContainer {
-    background-color: #f5f5f5;
-    color: #333;
-    padding: 0;
-    margin: 0;
+  position: relative;
+  z-index: 1;
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  color: #333;
+  transition: filter 0.3s ease;
+}
+
+/* Blur effect when modal is open */
+.blurBackground {
+  filter: blur(20px);
+}
+
+/* ========== Responsive Container Padding ========== */
+
+/* Mobile: < 576px */
+@media (max-width: 575px) {
+  .appContainer {
+    padding: 0 16px;
   }
-  .blurBackground {
-    filter: blur(20px);
+
+  .gradientOrb1,
+  .gradientOrb2,
+  .gradientOrb3 {
+    width: 300px;
+    height: 300px;
   }
+}
+
+/* Tablet: 576px - 991px */
+@media (min-width: 576px) and (max-width: 991px) {
+  .appContainer {
+    padding: 0 24px;
+  }
+
+  .gradientOrb1,
+  .gradientOrb2,
+  .gradientOrb3 {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+/* Desktop: 992px - 1399px */
+@media (min-width: 992px) and (max-width: 1399px) {
+  .appContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+}
+
+/* Large Desktop: 1400px+ */
+@media (min-width: 1400px) {
+  .appContainer {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+}
+
+/* ========== Smooth Transitions ========== */
+
+.pageWrapper * {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ========== Print Styles ========== */
+
+@media print {
+  .decorativeBackground {
+    display: none;
+  }
+
+  .pageWrapper {
+    background: white;
+  }
+}

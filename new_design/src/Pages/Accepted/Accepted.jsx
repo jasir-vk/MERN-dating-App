@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./Accept.module.css";
 import { FaPhone, FaVideo } from "react-icons/fa";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import { getAcceptRequest } from "../../Services/getAcceptRequestAPI";
 import LoadingPage from "../../Components/LoadingPage/LoadingPage";
+import { ModalContext } from "../../StateManagement/ModalContext";
 
 const Accepted = () => {
+    const { setPageName } = useContext(ModalContext);
     const [getAccept, setGetAccept] = useState([])
     const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        setPageName("Accept");
+    }, [setPageName]);
 
     useEffect(() => {
         const fetchAcceptRequest = async () => {
