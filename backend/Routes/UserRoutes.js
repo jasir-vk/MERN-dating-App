@@ -22,6 +22,7 @@ const { fetchMessageProfileBackend } = require('../Controllers/PersonalMessageCo
 const { FetchFriendsBackend } = require('../Controllers/ParentMessageController')
 const { ChattingImageUploadBackend } = require('../Controllers/ChattingImagesController')
 const { getCompatibilityScore, getTopMatches, recalculateCompatibility } = require('../Controllers/MatchingController')
+const { getForYouFeed, recordSwipe, undoSwipe, trackProfileView } = require('../Controllers/RecommendationController')
 
 
 
@@ -72,6 +73,12 @@ router.get('/message-acceptedRequests', authentication, FetchFriendsBackend)
 router.get('/compatibility/:userId', authentication, getCompatibilityScore)
 router.get('/top-matches', authentication, getTopMatches)
 router.post('/recalculate-compatibility/:userId', authentication, recalculateCompatibility)
+
+// Recommendation & For You Feed Routes
+router.get('/for-you-feed', authentication, getForYouFeed)
+router.post('/record-swipe', authentication, recordSwipe)
+router.post('/undo-swipe', authentication, undoSwipe)
+router.post('/track-profile-view', authentication, trackProfileView)
 
 
 

@@ -26,4 +26,4 @@ ShortListSchema.pre('save', function (next) {
     next();
 });
 
-module.exports = mongoose.model('Shortlist', ShortListSchema);
+module.exports = mongoose.models.Shortlist || mongoose.model('Shortlist', ShortListSchema);

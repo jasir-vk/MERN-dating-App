@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationDot, faBriefcase, faGraduationCap } from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faBriefcase, faGraduationCap, faHeart } from '@fortawesome/free-solid-svg-icons';
 import styles from './filters.module.css';
 import { Link } from 'react-router-dom';
 
 const filters = [
+  { id: 'foryou', label: 'For You', icon: faHeart, path: '/foryou' },
   { id: 'nearby', label: 'Nearby', icon: faLocationDot, path: '/near-by-user' },
   { id: 'designation', label: 'Designation', icon: faBriefcase, path: '/designation' },
   { id: 'qualification', label: 'Qualification', icon: faGraduationCap, path: '/qualification' },
 ];
 
 const Filters = () => {
-  const [activeFilter, setActiveFilter] = useState('nearby');
+  const [activeFilter, setActiveFilter] = useState('foryou');
 
   return (
     <section className={styles.filtersSection}>

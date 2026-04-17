@@ -59,6 +59,6 @@ CompatibilityScoreSchema.pre('save', function(next) {
     next();
 });
 
-const CompatibilityScore = mongoose.model('CompatibilityScore', CompatibilityScoreSchema);
+const CompatibilityScore = mongoose.models.CompatibilityScore || mongoose.model('CompatibilityScore', CompatibilityScoreSchema);
 
 module.exports = CompatibilityScore;

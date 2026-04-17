@@ -33,4 +33,4 @@ messageSchema.pre('save', function (next) {
         next()
     }
 })
-module.exports = mongoose.model('Message', messageSchema);
+module.exports = mongoose.models.Message || mongoose.model('Message', messageSchema);

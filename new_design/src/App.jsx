@@ -37,6 +37,7 @@ import DesignationPage from './Pages/Designation/DesignationPage';
 import MatchesPage from './Pages/Matches/MatchesPage';
 import UpgradePopup from './Pages/UpgradePopup/UpgradePopup';
 import NearByUser from './Pages/NearByUser/NearByUser';
+import ForYouFeed from './Pages/ForYou/ForYouFeed';
 
 import NotFound404 from './Pages/NotFound404/NotFound404';
 import NotFound403 from './Pages/NotFound403/NotFound403';
@@ -63,6 +64,7 @@ const App = () => {
             <Route path='/choose-app' element={<ChooseApp />} />
 
             <Route path='/userhome' element={<UserHomePage />} />
+            <Route path='/foryou' element={<ForYouFeed />} />
             <Route path='/qualification' element={<Qualification />} />
             <Route path='/location' element={<LocationPage />} />
             <Route path='/designation' element={<DesignationPage />} />

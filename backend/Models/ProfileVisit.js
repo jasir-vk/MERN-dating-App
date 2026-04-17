@@ -23,6 +23,6 @@ const ProfileVisitSchema = new mongoose.Schema({
     }
 });
 
-const ProfileVisit = mongoose.model('ProfileVisit', ProfileVisitSchema);
+const ProfileVisit = mongoose.models.ProfileVisit || mongoose.model('ProfileVisit', ProfileVisitSchema);
 
 module.exports = ProfileVisit;

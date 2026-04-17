@@ -28,5 +28,5 @@ friendRequestSchema.pre('save', function (next) {
         next()
     }
 })
-const FriendRequest = mongoose.model('FriendRequest', friendRequestSchema)
+const FriendRequest = mongoose.models.FriendRequest || mongoose.model('FriendRequest', friendRequestSchema)
 module.exports = FriendRequest

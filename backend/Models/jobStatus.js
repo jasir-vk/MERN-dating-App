@@ -44,4 +44,4 @@ const jobStatusSchema = new mongoose.Schema({
         default: Date.now
     }
 })
-module.exports = mongoose.model('Employer', jobStatusSchema)
+module.exports = mongoose.models.Employer || mongoose.model('Employer', jobStatusSchema)
